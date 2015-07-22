@@ -1,0 +1,131 @@
+<?php
+
+namespace Sunfox\PriceCalculator;
+
+use Nette;
+
+
+class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
+{
+	/** @var float */
+	private $basePrice = 0.0;
+
+	/** @var float */
+	private $reduction = 0.0;
+
+	/** @var float */
+	private $price = 0.0;
+
+	/** @var float */
+	private $vatRate = 0.0;
+
+	/** @var float */
+	private $priceVat = 0.0;
+
+	/** @var int */
+	private $decimalPoints = 2;
+
+	/** @var string */
+	private $calculateFrom = 'basePrice';
+
+
+	public function __construct($vatRate = 0.0, $basePrice = 0.0, $reduction = 0.0)
+	{
+		$this->setVatRate($vatRate);
+		$this->setBasePrice($basePrice);
+		$this->setReduction($reduction);
+	}
+
+	public function getBasePrice()
+	{
+		return $this->basePrice;
+	}
+
+	public function setBasePrice($value)
+	{
+		$this->basePrice = (float) $value;
+		$this->calculateFrom = 'basePrice';
+		return $this;
+	}
+
+	public function getReduction()
+	{
+		return $this->reduction;
+	}
+
+	public function setReduction($value)
+	{
+		$this->reduction = (float) $value;
+		return $this;
+	}
+
+	public function getPrice()
+	{
+		return $this->price;
+	}
+
+	public function setPrice($value)
+	{
+		$this->price = (float) $value;
+		$this->calculateFrom = 'price';
+		return $this;
+	}
+
+	public function getVatRate()
+	{
+		return $this->vatRate;
+	}
+
+	public function setVatRate($value)
+	{
+		$this->vatRate = (float) $value;
+		return $this;
+	}
+
+	public function getPriceVat()
+	{
+		return $this->priceVat;
+	}
+
+	public function setPriceVat($value)
+	{
+		$this->priceVat = (float) $value;
+		$this->calculateFrom = 'priceVat';
+		return $this;
+	}
+
+	public function getDecimalPoints()
+	{
+		return $this->getDecimalPoints;
+	}
+
+	public function setDecimalPoints($value)
+	{
+		$this->decimalPoints = (int) $value;
+	}
+
+	public function calculate()
+	{
+		$basePrice = round($this->basePrice, $this->decimalPoints);
+		$price = round($this->price, $this->decimalPoints);
+		$priceVat = round($this->priceVat, $this->decimalPoints);
+
+		if ($this->calculateFrom === 'basePrice') {
+			$price = round($basePrice * (1 - $this->reduction/100), $this->decimalPoints);
+			$priceVat = round($price * ($this->vatRate/100 + 1), $this->decimalPoints);
+		} elseif ($this->calculateFrom === 'price') {
+			$basePrice = $this->reduction ? round($price / (1 - $this->reduction/100), $this->decimalPoints) : $price;
+			$priceVat = round($price * ($this->vatRate/100 + 1), $this->decimalPoints);
+		} elseif ($this->calculateFrom === 'priceVat') {
+			$price = round($priceVat / ($this->vatRate/100 + 1), $this->decimalPoints);
+			$basePrice = $this->reduction ? round($price / (1 - $this->reduction/100), $this->decimalPoints) : $price;
+		}
+
+		$vat = $priceVat - $price;
+
+		return new PriceCalculatorResult(
+			$this, $basePrice, $this->reduction, $price, $this->vatRate, $vat, $priceVat
+		);
+	}
+
+}

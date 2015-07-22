@@ -1,0 +1,31 @@
+{
+	"name": "sunfoxcz/price-calculator",
+	"type": "library",
+	"description": "Library for easier price calculation using VAT and discount.",
+	"keywords": ["price", "calculator", "calculation", "VAT", "DPH", "TAX", "discount", "reduction"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tomáš Jacík",
+			"email": "tomas.jacik@sunfox.cz",
+			"homepage": "http://sunfox.cz"
+		}
+	],
+	"require": {
+		"php": ">=5.4.4",
+		"nette/utils": "~2.3.0"
+	},
+	"require-dev": {
+		"nette/tester": "~1.5",
+		"janmarek/mockista": "~1.1"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.1-dev"
+		}
+	}
+}
