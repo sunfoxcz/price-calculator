@@ -29,6 +29,15 @@ class PriceCalculatorResult extends Nette\Object
 	protected $priceVat = 0.0;
 
 
+	/**
+	 * @param IPriceCalculator
+	 * @param float
+	 * @param float
+	 * @param float
+	 * @param float
+	 * @param float
+	 * @param float
+	 */
 	public function __construct(IPriceCalculator $calculator, $basePrice, $reduction,
 								$price, $vatRate, $vat, $priceVat)
 	{
@@ -41,41 +50,81 @@ class PriceCalculatorResult extends Nette\Object
 		$this->priceVat = $priceVat;
 	}
 
+	/**
+	 * Return PriceCalculator instance.
+	 *
+	 * @return IPriceCalculator
+	 */
 	public function getCalculator()
 	{
 		return $this->calculator;
 	}
 
+	/**
+	 * Get price without VAT and reduction.
+	 *
+	 * @return float
+	 */
 	public function getBasePrice()
 	{
 		return $this->basePrice;
 	}
 
+	/**
+	 * Get reduction in percent without VAT.
+	 *
+	 * @return float
+	 */
 	public function getReduction()
 	{
 		return $this->reduction;
 	}
 
+	/**
+	 * Get price after reduction without VAT.
+	 *
+	 * @return float
+	 */
 	public function getPrice()
 	{
 		return $this->price;
 	}
 
+	/**
+	 * Get VAT rate in percent.
+	 *
+	 * @return float
+	 */
 	public function getVatRate()
 	{
 		return $this->vatRate;
 	}
 
+	/**
+	 * Get VAT value.
+	 *
+	 * @return float
+	 */
 	public function getVat()
 	{
 		return $this->vat;
 	}
 
+	/**
+	 * Get price after reduction with VAT.
+	 *
+	 * @return float
+	 */
 	public function getPriceVat()
 	{
 		return $this->priceVat;
 	}
 
+	/**
+	 * Return all prices as array.
+	 *
+	 * @return array
+	 */
 	public function toArray()
 	{
 		return [
