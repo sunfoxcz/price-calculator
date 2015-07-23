@@ -1,6 +1,6 @@
 <?php
 
-namespace Test;
+namespace Sunfox\Tests;
 
 use Nette;
 use Tester;
