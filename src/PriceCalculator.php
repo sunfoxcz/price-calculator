@@ -26,7 +26,7 @@ class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
 	private $decimalPoints = 2;
 
 	/** @var string */
-	private $calculateFrom = 'basePrice';
+	private $calculateFrom = self::FROM_BASEPRICE;
 
 
 	public function __construct($vatRate = 0.0, $basePrice = 0.0, $reduction = 0.0)
@@ -44,7 +44,7 @@ class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
 	public function setBasePrice($value)
 	{
 		$this->basePrice = (float) $value;
-		$this->calculateFrom = 'basePrice';
+		$this->calculateFrom = self::FROM_BASEPRICE;
 		return $this;
 	}
 
@@ -67,7 +67,7 @@ class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
 	public function setPrice($value)
 	{
 		$this->price = (float) $value;
-		$this->calculateFrom = 'price';
+		$this->calculateFrom = self::FROM_PRICE;
 		return $this;
 	}
 
@@ -90,7 +90,7 @@ class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
 	public function setPriceVat($value)
 	{
 		$this->priceVat = (float) $value;
-		$this->calculateFrom = 'priceVat';
+		$this->calculateFrom = self::FROM_PRICEVAT;
 		return $this;
 	}
 
@@ -110,13 +110,13 @@ class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
 		$price = round($this->price, $this->decimalPoints);
 		$priceVat = round($this->priceVat, $this->decimalPoints);
 
-		if ($this->calculateFrom === 'basePrice') {
+		if ($this->calculateFrom === self::FROM_BASEPRICE) {
 			$price = round($basePrice * (1 - $this->reduction/100), $this->decimalPoints);
 			$priceVat = round($price * ($this->vatRate/100 + 1), $this->decimalPoints);
-		} elseif ($this->calculateFrom === 'price') {
+		} elseif ($this->calculateFrom === self::FROM_PRICE) {
 			$basePrice = $this->reduction ? round($price / (1 - $this->reduction/100), $this->decimalPoints) : $price;
 			$priceVat = round($price * ($this->vatRate/100 + 1), $this->decimalPoints);
-		} elseif ($this->calculateFrom === 'priceVat') {
+		} elseif ($this->calculateFrom === self::FROM_PRICEVAT) {
 			$price = round($priceVat / ($this->vatRate/100 + 1), $this->decimalPoints);
 			$basePrice = $this->reduction ? round($price / (1 - $this->reduction/100), $this->decimalPoints) : $price;
 		}

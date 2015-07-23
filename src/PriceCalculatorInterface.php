@@ -5,6 +5,10 @@ namespace Sunfox\PriceCalculator;
 
 interface PriceCalculatorInterface
 {
+	const FROM_BASEPRICE = 'basePrice',
+		FROM_PRICE = 'price',
+		FROM_PRICEVAT = 'priceVat';
+
 
 	public function getBasePrice();
 
