@@ -96,7 +96,7 @@ class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
 
 	public function getDecimalPoints()
 	{
-		return $this->getDecimalPoints;
+		return $this->decimalPoints;
 	}
 
 	public function setDecimalPoints($value)
