@@ -188,14 +188,14 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 		$priceVat = round($this->priceVat, $this->decimalPoints);
 
 		if ($this->calculateFrom === self::FROM_BASEPRICE) {
-			$price = round($basePrice * (1 - $this->reduction/100), $this->decimalPoints);
-			$priceVat = round($price * ($this->vatRate/100 + 1), $this->decimalPoints);
+			$price = round($basePrice * (1 - $this->reduction / 100), $this->decimalPoints);
+			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
 		} elseif ($this->calculateFrom === self::FROM_PRICE) {
-			$basePrice = $this->reduction ? round($price / (1 - $this->reduction/100), $this->decimalPoints) : $price;
-			$priceVat = round($price * ($this->vatRate/100 + 1), $this->decimalPoints);
+			$basePrice = $this->reduction ? round($price / (1 - $this->reduction / 100), $this->decimalPoints) : $price;
+			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
 		} elseif ($this->calculateFrom === self::FROM_PRICEVAT) {
-			$price = round($priceVat / ($this->vatRate/100 + 1), $this->decimalPoints);
-			$basePrice = $this->reduction ? round($price / (1 - $this->reduction/100), $this->decimalPoints) : $price;
+			$price = round($priceVat / ($this->vatRate / 100 + 1), $this->decimalPoints);
+			$basePrice = $this->reduction ? round($price / (1 - $this->reduction / 100), $this->decimalPoints) : $price;
 		}
 
 		$vat = $priceVat - $price;
