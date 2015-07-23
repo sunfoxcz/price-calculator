@@ -7,7 +7,8 @@ use Tester;
 use Tester\Assert;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;
 
-require __DIR__ . '/../bootstrap.php';
+
+require __DIR__ . '/bootstrap.php';
 
 
 class PriceCalculatorTest extends Tester\TestCase

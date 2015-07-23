@@ -9,13 +9,6 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 }
 
 
-require __DIR__ . '/../src/PriceCalculator/PriceCalculatorInterface.php';
-require __DIR__ . '/../src/PriceCalculator/PriceCalculator.php';
-require __DIR__ . '/../src/PriceCalculator/PriceCalculatorFactoryInterface.php';
-require __DIR__ . '/../src/PriceCalculator/PriceCalculatorFactory.php';
-require __DIR__ . '/../src/PriceCalculator/PriceCalculatorResult.php';
-
-
 Tester\Environment::setup();
 date_default_timezone_set('Europe/Prague');
 

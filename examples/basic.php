@@ -1,8 +1,7 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../src/PriceCalculator/PriceCalculator.php';
-require __DIR__ . '/../src/PriceCalculator/PriceCalculatorResult.php';
+
 
 use Sunfox\PriceCalculator;
 

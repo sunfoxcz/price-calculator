@@ -16,11 +16,12 @@
 		"nette/utils": "~2.3.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.5",
-		"janmarek/mockista": "~1.1"
+		"nette/tester": "~1.5"
 	},
 	"autoload": {
-		"classmap": ["src/"]
+		"psr-4": {
+			"Sunfox\\PriceCalculator\\": "src/"
+		}
 	},
 	"minimum-stability": "stable",
 	"extra": {
