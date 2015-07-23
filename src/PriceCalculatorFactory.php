@@ -5,7 +5,7 @@ namespace Sunfox\PriceCalculator;
 use Nette;
 
 
-class PriceCalculatorFactory extends Nette\Object implements PriceCalculatorFactoryInterface
+class PriceCalculatorFactory extends Nette\Object
 {
 	/** @var string */
 	private $class;
