@@ -7,7 +7,7 @@ use Nette;
 
 class PriceCalculatorResult extends Nette\Object
 {
-	/** @var PriceCalculatorInterface */
+	/** @var IPriceCalculator */
 	protected $calculator;
 
 	/** @var float */
@@ -29,7 +29,7 @@ class PriceCalculatorResult extends Nette\Object
 	protected $priceVat = 0.0;
 
 
-	public function __construct(PriceCalculatorInterface $calculator, $basePrice, $reduction,
+	public function __construct(IPriceCalculator $calculator, $basePrice, $reduction,
 								$price, $vatRate, $vat, $priceVat)
 	{
 		$this->calculator = $calculator;

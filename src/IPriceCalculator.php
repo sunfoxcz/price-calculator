@@ -3,7 +3,7 @@
 namespace Sunfox\PriceCalculator;
 
 
-interface PriceCalculatorInterface
+interface IPriceCalculator
 {
 	const FROM_BASEPRICE = 'basePrice',
 		FROM_PRICE = 'price',

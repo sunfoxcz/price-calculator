@@ -5,7 +5,7 @@ namespace Sunfox\PriceCalculator;
 use Nette;
 
 
-class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
+class PriceCalculator extends Nette\Object implements IPriceCalculator
 {
 	/** @var float */
 	protected $basePrice = 0.0;
