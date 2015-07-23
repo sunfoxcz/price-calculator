@@ -5,28 +5,28 @@ namespace Sunfox\PriceCalculator;
 use Nette;
 
 
-final class PriceCalculatorResult extends Nette\Object
+class PriceCalculatorResult extends Nette\Object
 {
 	/** @var PriceCalculatorInterface */
-	private $calculator;
+	protected $calculator;
 
 	/** @var float */
-	private $basePrice = 0.0;
+	protected $basePrice = 0.0;
 
 	/** @var float */
-	private $reduction = 0.0;
+	protected $reduction = 0.0;
 
 	/** @var float */
-	private $price = 0.0;
+	protected $price = 0.0;
 
 	/** @var float */
-	private $vatRate = 0.0;
+	protected $vatRate = 0.0;
 
 	/** @var float */
-	private $vat = 0.0;
+	protected $vat = 0.0;
 
 	/** @var float */
-	private $priceVat = 0.0;
+	protected $priceVat = 0.0;
 
 
 	public function __construct(PriceCalculatorInterface $calculator, $basePrice, $reduction,

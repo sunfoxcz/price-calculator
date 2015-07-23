@@ -8,7 +8,7 @@ use Nette;
 class PriceCalculatorFactory extends Nette\Object
 {
 	/** @var string */
-	private $class;
+	protected $class;
 
 
 	public function __construct($class = 'Sunfox\PriceCalculator\PriceCalculator')

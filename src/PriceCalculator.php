@@ -8,25 +8,25 @@ use Nette;
 class PriceCalculator extends Nette\Object implements PriceCalculatorInterface
 {
 	/** @var float */
-	private $basePrice = 0.0;
+	protected $basePrice = 0.0;
 
 	/** @var float */
-	private $reduction = 0.0;
+	protected $reduction = 0.0;
 
 	/** @var float */
-	private $price = 0.0;
+	protected $price = 0.0;
 
 	/** @var float */
-	private $vatRate = 0.0;
+	protected $vatRate = 0.0;
 
 	/** @var float */
-	private $priceVat = 0.0;
+	protected $priceVat = 0.0;
 
 	/** @var int */
-	private $decimalPoints = 2;
+	protected $decimalPoints = 2;
 
 	/** @var string */
-	private $calculateFrom = self::FROM_BASEPRICE;
+	protected $calculateFrom = self::FROM_BASEPRICE;
 
 
 	public function __construct($vatRate = 0.0, $basePrice = 0.0, $reduction = 0.0)
