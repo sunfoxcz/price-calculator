@@ -13,7 +13,7 @@ $calc = (new PriceCalculator\PriceCalculator)
 echo "------------------------------------------------------------\n";
 echo "RESULT:\n";
 echo "------------------------------------------------------------\n";
-foreach ($calc->calculate() as $k => $v)
+foreach ($calc->calculate()->toArray() as $k => $v)
 {
 	echo "{$k}: {$v}\n";
 }

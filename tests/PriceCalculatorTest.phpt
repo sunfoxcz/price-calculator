@@ -25,6 +25,20 @@ class PriceCalculatorTest extends Tester\TestCase
 			->setVatRate(21);
 	}
 
+	public function testToArray()
+	{
+		$result = $this->calculator->calculate();
+
+		Assert::equal([
+			'basePrice' => 1983.48,
+			'reduction' => 10.0,
+			'price' => 1785.13,
+			'vatRate' => 21.0,
+			'vat' => 374.88,
+			'priceVat' => 2160.01,
+		], $result->toArray());
+	}
+
 	public function testSetBasePrice()
 	{
 		$result = $this->calculator->calculate();

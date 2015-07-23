@@ -5,7 +5,7 @@ namespace Sunfox\PriceCalculator;
 use Nette;
 
 
-final class PriceCalculatorResult extends Nette\Object implements \IteratorAggregate
+final class PriceCalculatorResult extends Nette\Object
 {
 	/** @var PriceCalculatorInterface */
 	private $calculator;
@@ -76,9 +76,9 @@ final class PriceCalculatorResult extends Nette\Object implements \IteratorAggre
 		return $this->priceVat;
 	}
 
-	public function getIterator()
+	public function toArray()
 	{
-		$array = [
+		return [
 			'basePrice' => $this->basePrice,
 			'reduction' => $this->reduction,
 			'price' => $this->price,
@@ -86,8 +86,6 @@ final class PriceCalculatorResult extends Nette\Object implements \IteratorAggre
 			'vat' => $this->vat,
 			'priceVat' => $this->priceVat,
 		];
-
-		return new \RecursiveArrayIterator($array);
 	}
 
 }
