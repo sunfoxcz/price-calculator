@@ -11,14 +11,14 @@ interface IPriceCalculator
 
 
 	/**
-	 * Get price without VAT and reduction.
+	 * Get price without VAT and discount.
 	 *
 	 * @return float
 	 */
 	public function getBasePrice();
 
 	/**
-	 * Set price without VAT and reduction.
+	 * Set price without VAT and discount.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
@@ -26,29 +26,29 @@ interface IPriceCalculator
 	public function setBasePrice($value);
 
 	/**
-	 * Get reduction in percent without VAT.
+	 * Get discount in percent without VAT.
 	 *
 	 * @return float
 	 */
-	public function getReduction();
+	public function getDiscount();
 
 	/**
-	 * Set reduction in percent without VAT.
+	 * Set discount in percent without VAT.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
 	 */
-	public function setReduction($value);
+	public function setDiscount($value);
 
 	/**
-	 * Get price after reduction without VAT.
+	 * Get price after discount without VAT.
 	 *
 	 * @return float
 	 */
 	public function getPrice();
 
 	/**
-	 * Set price after reduction without VAT.
+	 * Set price after discount without VAT.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
@@ -71,14 +71,14 @@ interface IPriceCalculator
 	public function setVatRate($value);
 
 	/**
-	 * Get price after reduction with VAT.
+	 * Get price after discount with VAT.
 	 *
 	 * @return float
 	 */
 	public function getPriceVat();
 
 	/**
-	 * Set price after reduction with VAT.
+	 * Set price after discount with VAT.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator

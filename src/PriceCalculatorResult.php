@@ -14,7 +14,7 @@ class PriceCalculatorResult extends Nette\Object
 	protected $basePrice = 0.0;
 
 	/** @var float */
-	protected $reduction = 0.0;
+	protected $discount = 0.0;
 
 	/** @var float */
 	protected $price = 0.0;
@@ -38,12 +38,12 @@ class PriceCalculatorResult extends Nette\Object
 	 * @param float
 	 * @param float
 	 */
-	public function __construct(IPriceCalculator $calculator, $basePrice, $reduction,
+	public function __construct(IPriceCalculator $calculator, $basePrice, $discount,
 								$price, $vatRate, $vat, $priceVat)
 	{
 		$this->calculator = $calculator;
 		$this->basePrice = $basePrice;
-		$this->reduction = $reduction;
+		$this->discount = $discount;
 		$this->price = $price;
 		$this->vatRate = $vatRate;
 		$this->vat = $vat;
@@ -61,7 +61,7 @@ class PriceCalculatorResult extends Nette\Object
 	}
 
 	/**
-	 * Get price without VAT and reduction.
+	 * Get price without VAT and discount.
 	 *
 	 * @return float
 	 */
@@ -71,17 +71,17 @@ class PriceCalculatorResult extends Nette\Object
 	}
 
 	/**
-	 * Get reduction in percent without VAT.
+	 * Get discount in percent without VAT.
 	 *
 	 * @return float
 	 */
-	public function getReduction()
+	public function getDiscount()
 	{
-		return $this->reduction;
+		return $this->discount;
 	}
 
 	/**
-	 * Get price after reduction without VAT.
+	 * Get price after discount without VAT.
 	 *
 	 * @return float
 	 */
@@ -111,7 +111,7 @@ class PriceCalculatorResult extends Nette\Object
 	}
 
 	/**
-	 * Get price after reduction with VAT.
+	 * Get price after discount with VAT.
 	 *
 	 * @return float
 	 */
@@ -129,7 +129,7 @@ class PriceCalculatorResult extends Nette\Object
 	{
 		return [
 			'basePrice' => $this->basePrice,
-			'reduction' => $this->reduction,
+			'discount' => $this->discount,
 			'price' => $this->price,
 			'vatRate' => $this->vatRate,
 			'vat' => $this->vat,

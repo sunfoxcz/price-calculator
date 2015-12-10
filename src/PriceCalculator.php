@@ -11,7 +11,7 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	protected $basePrice = 0.0;
 
 	/** @var float */
-	protected $reduction = 0.0;
+	protected $discount = 0.0;
 
 	/** @var float */
 	protected $price = 0.0;
@@ -31,18 +31,18 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 
 	/**
 	 * @param int|float VAT rate
-	 * @param int|float Price without VAT and reduction
-	 * @param int|float Reduction without VAT
+	 * @param int|float Price without VAT and discount
+	 * @param int|float Discount without VAT
 	 */
-	public function __construct($vatRate = 0.0, $basePrice = 0.0, $reduction = 0.0)
+	public function __construct($vatRate = 0.0, $basePrice = 0.0, $discount = 0.0)
 	{
 		$this->setVatRate($vatRate);
 		$this->setBasePrice($basePrice);
-		$this->setReduction($reduction);
+		$this->setDiscount($discount);
 	}
 
 	/**
-	 * Get price without VAT and reduction.
+	 * Get price without VAT and discount.
 	 *
 	 * @return float
 	 */
@@ -52,7 +52,7 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	}
 
 	/**
-	 * Set price without VAT and reduction.
+	 * Set price without VAT and discount.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
@@ -65,29 +65,29 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	}
 
 	/**
-	 * Get reduction in percent without VAT.
+	 * Get discount in percent without VAT.
 	 *
 	 * @return float
 	 */
-	public function getReduction()
+	public function getDiscount()
 	{
-		return $this->reduction;
+		return $this->discount;
 	}
 
 	/**
-	 * Set reduction in percent without VAT.
+	 * Set discount in percent without VAT.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
 	 */
-	public function setReduction($value)
+	public function setDiscount($value)
 	{
-		$this->reduction = (float) $value;
+		$this->discount = (float) $value;
 		return $this;
 	}
 
 	/**
-	 * Get price after reduction without VAT.
+	 * Get price after discount without VAT.
 	 *
 	 * @return float
 	 */
@@ -97,7 +97,7 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	}
 
 	/**
-	 * Set price after reduction without VAT.
+	 * Set price after discount without VAT.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
@@ -132,7 +132,7 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	}
 
 	/**
-	 * Get price after reduction with VAT.
+	 * Get price after discount with VAT.
 	 *
 	 * @return float
 	 */
@@ -142,7 +142,7 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	}
 
 	/**
-	 * Set price after reduction with VAT.
+	 * Set price after discount with VAT.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
@@ -188,20 +188,20 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 		$priceVat = round($this->priceVat, $this->decimalPoints);
 
 		if ($this->calculateFrom === self::FROM_BASEPRICE) {
-			$price = round($basePrice * (1 - $this->reduction / 100), $this->decimalPoints);
+			$price = round($basePrice * (1 - $this->discount / 100), $this->decimalPoints);
 			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
 		} elseif ($this->calculateFrom === self::FROM_PRICE) {
-			$basePrice = $this->reduction ? round($price / (1 - $this->reduction / 100), $this->decimalPoints) : $price;
+			$basePrice = $this->discount ? round($price / (1 - $this->discount / 100), $this->decimalPoints) : $price;
 			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
 		} elseif ($this->calculateFrom === self::FROM_PRICEVAT) {
 			$price = round($priceVat / ($this->vatRate / 100 + 1), $this->decimalPoints);
-			$basePrice = $this->reduction ? round($price / (1 - $this->reduction / 100), $this->decimalPoints) : $price;
+			$basePrice = $this->discount ? round($price / (1 - $this->discount / 100), $this->decimalPoints) : $price;
 		}
 
 		$vat = $priceVat - $price;
 
 		return new PriceCalculatorResult(
-			$this, $basePrice, $this->reduction, $price, $this->vatRate, $vat, $priceVat
+			$this, $basePrice, $this->discount, $price, $this->vatRate, $vat, $priceVat
 		);
 	}
 

@@ -7,7 +7,7 @@ use Sunfox\PriceCalculator;
 
 $calc = (new PriceCalculator\PriceCalculator)
 	->setBasePrice(1983.48)
-	->setReduction(10)
+	->setDiscount(10)
 	->setVatRate(21);
 
 echo "------------------------------------------------------------\n";
