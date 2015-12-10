@@ -38,7 +38,7 @@ class PriceCalculatorResult extends Nette\Object
 	 * @param float
 	 * @param float
 	 */
-	public function __construct(IPriceCalculator $calculator, $basePrice, $discount,
+	public function __construct(IPriceCalculator $calculator, $basePrice, IDiscount $discount = NULL,
 								$price, $vatRate, $vat, $priceVat)
 	{
 		$this->calculator = $calculator;
@@ -129,7 +129,7 @@ class PriceCalculatorResult extends Nette\Object
 	{
 		return [
 			'basePrice' => $this->basePrice,
-			'discount' => $this->discount,
+			'discount' => $this->discount ? $this->discount->value : 0.0,
 			'price' => $this->price,
 			'vatRate' => $this->vatRate,
 			'vat' => $this->vat,

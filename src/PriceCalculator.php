@@ -10,8 +10,8 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	/** @var float */
 	protected $basePrice = 0.0;
 
-	/** @var float */
-	protected $discount = 0.0;
+	/** @var IDiscount|NULL */
+	protected $discount = NULL;
 
 	/** @var float */
 	protected $price = 0.0;
@@ -34,7 +34,7 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	 * @param int|float Price without VAT and discount
 	 * @param int|float Discount without VAT
 	 */
-	public function __construct($vatRate = 0.0, $basePrice = 0.0, $discount = 0.0)
+	public function __construct($vatRate = 0.0, $basePrice = 0.0, IDiscount $discount = NULL)
 	{
 		$this->setVatRate($vatRate);
 		$this->setBasePrice($basePrice);
@@ -67,7 +67,7 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	/**
 	 * Get discount in percent without VAT.
 	 *
-	 * @return float
+	 * @return IDiscount
 	 */
 	public function getDiscount()
 	{
@@ -75,14 +75,38 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 	}
 
 	/**
-	 * Set discount in percent without VAT.
+	 * Set discount instance.
+	 *
+	 * @param IDiscount
+	 * @return IPriceCalculator
+	 */
+	public function setDiscount(IDiscount $discount = NULL)
+	{
+		$this->discount = $discount;
+		return $this;
+	}
+
+	/**
+	 * Set amount discount.
 	 *
 	 * @param int|float
 	 * @return IPriceCalculator
 	 */
-	public function setDiscount($value)
+	public function setAmountDiscount($value)
 	{
-		$this->discount = (float) $value;
+		$this->discount = new Discount\AmountDiscount($value);
+		return $this;
+	}
+
+	/**
+	 * Set percent discount.
+	 *
+	 * @param int|float
+	 * @return IPriceCalculator
+	 */
+	public function setPercentDiscount($value)
+	{
+		$this->discount = new Discount\PercentDiscount($value);
 		return $this;
 	}
 
@@ -188,14 +212,14 @@ class PriceCalculator extends Nette\Object implements IPriceCalculator
 		$priceVat = round($this->priceVat, $this->decimalPoints);
 
 		if ($this->calculateFrom === self::FROM_BASEPRICE) {
-			$price = round($basePrice * (1 - $this->discount / 100), $this->decimalPoints);
+			$price = round($this->discount ? $this->discount->addDiscount($basePrice) : $basePrice, $this->decimalPoints);
 			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
 		} elseif ($this->calculateFrom === self::FROM_PRICE) {
-			$basePrice = $this->discount ? round($price / (1 - $this->discount / 100), $this->decimalPoints) : $price;
+			$basePrice = $this->discount ? round($this->discount->removeDiscount($price), $this->decimalPoints) : $price;
 			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
 		} elseif ($this->calculateFrom === self::FROM_PRICEVAT) {
 			$price = round($priceVat / ($this->vatRate / 100 + 1), $this->decimalPoints);
-			$basePrice = $this->discount ? round($price / (1 - $this->discount / 100), $this->decimalPoints) : $price;
+			$basePrice = $this->discount ? round($this->discount->removeDiscount($price), $this->decimalPoints) : $price;
 		}
 
 		$vat = $priceVat - $price;

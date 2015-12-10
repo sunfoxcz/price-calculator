@@ -35,10 +35,10 @@ interface IPriceCalculator
 	/**
 	 * Set discount in percent without VAT.
 	 *
-	 * @param int|float
+	 * @param IDiscount
 	 * @return IPriceCalculator
 	 */
-	public function setDiscount($value);
+	public function setDiscount(IDiscount $discount = NULL);
 
 	/**
 	 * Get price after discount without VAT.
