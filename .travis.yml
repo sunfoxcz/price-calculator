@@ -4,7 +4,6 @@ php:
 
 script:
     - vendor/bin/tester tests -s -p php $FLAGS
-    - php code-checker/src/code-checker.php --short-arrays -d src
 
 after_failure:
     # Print *.actual content
@@ -13,7 +12,6 @@ after_failure:
 before_script:
     # Install Nette Tester & Code Checker
     - composer install --no-interaction --dev --prefer-source
-    - composer create-project nette/code-checker code-checker ~2.5 --no-interaction --prefer-source
     - if [[ "$TRAVIS_PHP_VERSION" = "7.1" ]]; then FLAGS="-d extension=xdebug.so --coverage coverage.xml --coverage-src src"; fi;
 
 after_script:
