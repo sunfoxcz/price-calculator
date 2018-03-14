@@ -5,8 +5,13 @@ namespace Sunfox\PriceCalculator\Discount;
 use Nette;
 
 
-class AmountDiscount extends Nette\Object implements \Sunfox\PriceCalculator\IDiscount
+/**
+ * @property float $value
+ */
+class AmountDiscount implements \Sunfox\PriceCalculator\IDiscount
 {
+	use Nette\SmartObject;
+
 	/** @var float */
 	protected $value = 0.0;
 

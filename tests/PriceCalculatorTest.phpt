@@ -2,7 +2,6 @@
 
 namespace Sunfox\Tests;
 
-use Nette;
 use Tester;
 use Tester\Assert;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;

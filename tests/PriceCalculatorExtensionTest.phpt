@@ -23,7 +23,6 @@ class PriceCalculatorExtensionTest extends Tester\TestCase
 		$config = new Nette\Configurator();
 		$config->setTempDirectory(TEMP_DIR);
 		PriceCalculatorExtension::register($config);
-		// $config->addConfig(__DIR__ . '/files/config.neon', $config::NONE);
 
 		return $config->createContainer();
 	}

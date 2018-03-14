@@ -5,8 +5,18 @@ namespace Sunfox\PriceCalculator;
 use Nette;
 
 
-class PriceCalculator extends Nette\Object implements IPriceCalculator
+/**
+ * @property float $basePrice
+ * @property IDiscount $discount
+ * @property float $price
+ * @property float $vatRate
+ * @property float $priceVat
+ * @property float $decimalPoints
+ */
+class PriceCalculator implements IPriceCalculator
 {
+	use Nette\SmartObject;
+
 	/** @var float */
 	protected $basePrice = 0.0;
 
