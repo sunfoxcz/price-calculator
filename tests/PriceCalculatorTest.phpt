@@ -67,6 +67,24 @@ final class PriceCalculatorTest extends Tester\TestCase
 		Assert::equal(2, $calculator->decimalPoints);
 	}
 
+	public function testSetDecimalPoints(): void
+	{
+		$result = $this->factory->create()
+			->setBasePrice(1983.4893)
+			->setAmountDiscount(500)
+			->setVatRate(21)
+			->setDecimalPoints(4)
+			->calculate();
+
+		Assert::equal(1983.4893, $result->basePrice);
+		Assert::type(AmountDiscount::class, $result->discount);
+		Assert::equal(500.0, $result->discount->value);
+		Assert::equal(1483.4893, $result->price);
+		Assert::equal(21.0, $result->vatRate);
+		Assert::equal(311.5328, $result->vat);
+		Assert::equal(1795.0221, $result->priceVat);
+	}
+
 	public function testSetBasePriceAmoutDiscount(): void
 	{
 		$result = $this->factory->create()
@@ -110,6 +128,7 @@ final class PriceCalculatorTest extends Tester\TestCase
 			->calculate();
 
 		Assert::equal(2285.13, $result->basePrice);
+		Assert::type(AmountDiscount::class, $result->discount);
 		Assert::equal(500.0, $result->discount->value);
 		Assert::equal(1785.13, $result->price);
 		Assert::equal(21.0, $result->vatRate);
@@ -126,6 +145,7 @@ final class PriceCalculatorTest extends Tester\TestCase
 			->calculate();
 
 		Assert::equal(1983.48, $result->basePrice);
+		Assert::type(PercentDiscount::class, $result->discount);
 		Assert::equal(10.0, $result->discount->value);
 		Assert::equal(1785.13, $result->price);
 		Assert::equal(21.0, $result->vatRate);
@@ -142,6 +162,7 @@ final class PriceCalculatorTest extends Tester\TestCase
 			->calculate();
 
 		Assert::equal(2285.13, $result->basePrice);
+		Assert::type(AmountDiscount::class, $result->discount);
 		Assert::equal(500.0, $result->discount->value);
 		Assert::equal(1785.13, $result->price);
 		Assert::equal(21.0, $result->vatRate);
@@ -158,6 +179,7 @@ final class PriceCalculatorTest extends Tester\TestCase
 			->calculate();
 
 		Assert::equal(1983.48, $result->basePrice);
+		Assert::type(PercentDiscount::class, $result->discount);
 		Assert::equal(10.0, $result->discount->value);
 		Assert::equal(1785.13, $result->price);
 		Assert::equal(21.0, $result->vatRate);
