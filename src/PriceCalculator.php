@@ -186,25 +186,48 @@ final class PriceCalculator implements IPriceCalculator
 	 */
 	public function calculate(): PriceCalculatorResult
 	{
-		$basePrice = round($this->basePrice, $this->decimalPoints);
-		$price = round($this->price, $this->decimalPoints);
-		$priceVat = round($this->priceVat, $this->decimalPoints);
-
 		if ($this->calculateFrom === self::FROM_BASEPRICE) {
-			$price = round($this->discount ? $this->discount->addDiscount($basePrice) : $basePrice, $this->decimalPoints);
-			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
+            [$basePrice, $price, $priceVat] = $this->calculateFromBasePrice();
 		} elseif ($this->calculateFrom === self::FROM_PRICE) {
-			$basePrice = $this->discount ? round($this->discount->removeDiscount($price), $this->decimalPoints) : $price;
-			$priceVat = round($price * ($this->vatRate / 100 + 1), $this->decimalPoints);
+            [$basePrice, $price, $priceVat] = $this->calculateFromPrice();
 		} elseif ($this->calculateFrom === self::FROM_PRICEVAT) {
-			$price = round($priceVat / ($this->vatRate / 100 + 1), $this->decimalPoints);
-			$basePrice = $this->discount ? round($this->discount->removeDiscount($price), $this->decimalPoints) : $price;
+            [$basePrice, $price, $priceVat] = $this->calculateFromPriceVat();
 		}
 
-		$vat = $priceVat - $price;
-
 		return new PriceCalculatorResult(
-			$this, $basePrice, $this->discount, $price, $this->vatRate, $vat, $priceVat
+			$this, $basePrice, $this->discount, $price, $this->vatRate, $priceVat - $price, $priceVat
 		);
+	}
+
+    private function calculateFromBasePrice(): array
+    {
+        $basePrice = $this->round($this->basePrice);
+        $price = $this->round($this->discount ? $this->discount->addDiscount($basePrice) : $basePrice);
+        $priceVat = $this->round($price * ($this->vatRate / 100 + 1));
+
+        return [$basePrice, $price, $priceVat];
+	}
+
+    private function calculateFromPrice(): array
+    {
+        $price = $this->round($this->price);
+        $basePrice = $this->discount ? $this->round($this->discount->removeDiscount($price)) : $price;
+        $priceVat = $this->round($price * ($this->vatRate / 100 + 1));
+
+        return [$basePrice, $price, $priceVat];
+    }
+
+    private function calculateFromPriceVat(): array
+    {
+        $priceVat = $this->round($this->priceVat);
+        $price = $this->round($priceVat / ($this->vatRate / 100 + 1));
+        $basePrice = $this->discount ? $this->round($this->discount->removeDiscount($price)) : $price;
+
+        return [$basePrice, $price, $priceVat];
+    }
+
+    private function round(float $price): float
+    {
+        return round($price, $this->decimalPoints);
 	}
 }
