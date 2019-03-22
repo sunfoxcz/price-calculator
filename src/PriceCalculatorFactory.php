@@ -7,12 +7,12 @@ final class PriceCalculatorFactory
 	/**
 	 * @var string
 	 */
-	protected $class;
+	private $class;
 
 	/**
-	 * @param string Class name with full namespace.
+	 * Accepts class name with full namespace.
 	 */
-	public function __construct($class = PriceCalculator::class)
+	public function __construct(string $class = PriceCalculator::class)
 	{
 		$this->class = $class;
 	}

@@ -36,7 +36,7 @@ final class AmountDiscount implements IDiscount
 	/**
 	 * Set discount value.
 	 */
-	public function setValue(float $value): AmountDiscount
+	public function setValue(float $value): IDiscount
 	{
 		$this->value = $value;
 		return $this;

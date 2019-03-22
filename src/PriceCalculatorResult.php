@@ -2,7 +2,7 @@
 
 namespace Sunfox\PriceCalculator;
 
-use Nette;
+use Nette\SmartObject;
 
 /**
  * @property IPriceCalculator $calculator
@@ -15,7 +15,7 @@ use Nette;
  */
 final class PriceCalculatorResult
 {
-	use Nette\SmartObject;
+	use SmartObject;
 
 	/**
 	 * @var IPriceCalculator
@@ -52,23 +52,14 @@ final class PriceCalculatorResult
 	 */
 	protected $priceVat = 0.0;
 
-	/**
-	 * @param IPriceCalculator $calculator
-	 * @param float $basePrice
-	 * @param float $discount
-	 * @param float $price
-	 * @param float $vatRate
-	 * @param float $vat
-	 * @param float $priceVat
-	 */
 	public function __construct(
 		IPriceCalculator $calculator,
-		$basePrice,
+		float $basePrice,
 		?IDiscount $discount,
-		$price,
-		$vatRate,
-		$vat,
-		$priceVat
+		float $price,
+		float $vatRate,
+		float $vat,
+		float $priceVat
 	) {
 		$this->calculator = $calculator;
 		$this->basePrice = $basePrice;
@@ -81,70 +72,56 @@ final class PriceCalculatorResult
 
 	/**
 	 * Return PriceCalculator instance.
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function getCalculator()
+	public function getCalculator(): IPriceCalculator
 	{
 		return $this->calculator;
 	}
 
 	/**
 	 * Get price without VAT and discount.
-	 *
-	 * @return float
 	 */
-	public function getBasePrice()
+	public function getBasePrice(): float
 	{
 		return $this->basePrice;
 	}
 
 	/**
 	 * Get discount in percent without VAT.
-	 *
-	 * @return IDiscount|NULL
 	 */
-	public function getDiscount()
+	public function getDiscount(): ?IDiscount
 	{
 		return $this->discount;
 	}
 
 	/**
 	 * Get price after discount without VAT.
-	 *
-	 * @return float
 	 */
-	public function getPrice()
+	public function getPrice(): float
 	{
 		return $this->price;
 	}
 
 	/**
 	 * Get VAT rate in percent.
-	 *
-	 * @return float
 	 */
-	public function getVatRate()
+	public function getVatRate(): float
 	{
 		return $this->vatRate;
 	}
 
 	/**
 	 * Get VAT value.
-	 *
-	 * @return float
 	 */
-	public function getVat()
+	public function getVat(): float
 	{
 		return $this->vat;
 	}
 
 	/**
 	 * Get price after discount with VAT.
-	 *
-	 * @return float
 	 */
-	public function getPriceVat()
+	public function getPriceVat(): float
 	{
 		return $this->priceVat;
 	}
@@ -152,9 +129,9 @@ final class PriceCalculatorResult
 	/**
 	 * Return all prices as array.
 	 *
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'basePrice' => $this->basePrice,

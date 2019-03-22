@@ -69,7 +69,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set price without VAT and discount.
 	 */
-	public function setBasePrice(float $value): self
+	public function setBasePrice(float $value): IPriceCalculator
 	{
 		$this->basePrice = $value;
 		$this->calculateFrom = self::FROM_BASEPRICE;
@@ -87,7 +87,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set discount instance.
 	 */
-	public function setDiscount(?IDiscount $discount): self
+	public function setDiscount(?IDiscount $discount): IPriceCalculator
 	{
 		$this->discount = $discount;
 		return $this;
@@ -96,7 +96,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set amount discount.
 	 */
-	public function setAmountDiscount(float $value): self
+	public function setAmountDiscount(float $value): IPriceCalculator
 	{
 		$this->discount = new Discount\AmountDiscount($value);
 		return $this;
@@ -105,7 +105,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set percent discount.
 	 */
-	public function setPercentDiscount(float $value): self
+	public function setPercentDiscount(float $value): IPriceCalculator
 	{
 		$this->discount = new Discount\PercentDiscount($value);
 		return $this;
@@ -122,7 +122,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set price after discount without VAT.
 	 */
-	public function setPrice(float $value): self
+	public function setPrice(float $value): IPriceCalculator
 	{
 		$this->price = $value;
 		$this->calculateFrom = self::FROM_PRICE;
@@ -140,7 +140,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set VAT rate in percent.
 	 */
-	public function setVatRate(float $value): self
+	public function setVatRate(float $value): IPriceCalculator
 	{
 		$this->vatRate = $value;
 		return $this;
@@ -157,7 +157,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set price after discount with VAT.
 	 */
-	public function setPriceVat(float $value): self
+	public function setPriceVat(float $value): IPriceCalculator
 	{
 		$this->priceVat = $value;
 		$this->calculateFrom = self::FROM_PRICEVAT;
@@ -175,7 +175,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set decimal point for rounding.
 	 */
-	public function setDecimalPoints(int $value): self
+	public function setDecimalPoints(int $value): IPriceCalculator
 	{
 		$this->decimalPoints = $value;
 		return $this;
@@ -187,11 +187,11 @@ final class PriceCalculator implements IPriceCalculator
 	public function calculate(): PriceCalculatorResult
 	{
 		if ($this->calculateFrom === self::FROM_BASEPRICE) {
-            [$basePrice, $price, $priceVat] = $this->calculateFromBasePrice();
+			[$basePrice, $price, $priceVat] = $this->calculateFromBasePrice();
 		} elseif ($this->calculateFrom === self::FROM_PRICE) {
-            [$basePrice, $price, $priceVat] = $this->calculateFromPrice();
+			[$basePrice, $price, $priceVat] = $this->calculateFromPrice();
 		} elseif ($this->calculateFrom === self::FROM_PRICEVAT) {
-            [$basePrice, $price, $priceVat] = $this->calculateFromPriceVat();
+			[$basePrice, $price, $priceVat] = $this->calculateFromPriceVat();
 		}
 
 		return new PriceCalculatorResult(
@@ -199,35 +199,44 @@ final class PriceCalculator implements IPriceCalculator
 		);
 	}
 
-    private function calculateFromBasePrice(): array
-    {
-        $basePrice = $this->round($this->basePrice);
-        $price = $this->round($this->discount ? $this->discount->addDiscount($basePrice) : $basePrice);
-        $priceVat = $this->round($price * ($this->vatRate / 100 + 1));
+	/**
+	 * @return float[]
+	 */
+	private function calculateFromBasePrice(): array
+	{
+		$basePrice = $this->round($this->basePrice);
+		$price = $this->round($this->discount ? $this->discount->addDiscount($basePrice) : $basePrice);
+		$priceVat = $this->round($price * ($this->vatRate / 100 + 1));
 
-        return [$basePrice, $price, $priceVat];
+		return [$basePrice, $price, $priceVat];
 	}
 
-    private function calculateFromPrice(): array
-    {
-        $price = $this->round($this->price);
-        $basePrice = $this->discount ? $this->round($this->discount->removeDiscount($price)) : $price;
-        $priceVat = $this->round($price * ($this->vatRate / 100 + 1));
+	/**
+	 * @return float[]
+	 */
+	private function calculateFromPrice(): array
+	{
+		$price = $this->round($this->price);
+		$basePrice = $this->discount ? $this->round($this->discount->removeDiscount($price)) : $price;
+		$priceVat = $this->round($price * ($this->vatRate / 100 + 1));
 
-        return [$basePrice, $price, $priceVat];
-    }
+		return [$basePrice, $price, $priceVat];
+	}
 
-    private function calculateFromPriceVat(): array
-    {
-        $priceVat = $this->round($this->priceVat);
-        $price = $this->round($priceVat / ($this->vatRate / 100 + 1));
-        $basePrice = $this->discount ? $this->round($this->discount->removeDiscount($price)) : $price;
+	/**
+	 * @return float[]
+	 */
+	private function calculateFromPriceVat(): array
+	{
+		$priceVat = $this->round($this->priceVat);
+		$price = $this->round($priceVat / ($this->vatRate / 100 + 1));
+		$basePrice = $this->discount ? $this->round($this->discount->removeDiscount($price)) : $price;
 
-        return [$basePrice, $price, $priceVat];
-    }
+		return [$basePrice, $price, $priceVat];
+	}
 
-    private function round(float $price): float
-    {
-        return round($price, $this->decimalPoints);
+	private function round(float $price): float
+	{
+		return round($price, $this->decimalPoints);
 	}
 }

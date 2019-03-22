@@ -11,10 +11,8 @@ interface IDiscount
 
 	/**
 	 * Set discount value.
-	 *
-	 * @return IDiscount
 	 */
-	public function setValue(float $value);
+	public function setValue(float $value): self;
 
 	/**
 	 * Returns price after discount.

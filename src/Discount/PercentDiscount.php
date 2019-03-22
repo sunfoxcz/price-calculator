@@ -36,7 +36,7 @@ final class PercentDiscount implements IDiscount
 	/**
 	 * Set discount value.
 	 */
-	public function setValue(float $value): PercentDiscount
+	public function setValue(float $value): IDiscount
 	{
 		$this->value = $value;
 		return $this;

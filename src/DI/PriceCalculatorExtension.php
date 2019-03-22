@@ -11,7 +11,7 @@ use Sunfox\PriceCalculator\PriceCalculatorFactory;
 final class PriceCalculatorExtension extends CompilerExtension
 {
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	private $defaults = [
 		'calculatorClass' => PriceCalculator::class,
@@ -26,13 +26,10 @@ final class PriceCalculatorExtension extends CompilerExtension
 			->setFactory(PriceCalculatorFactory::class, [$config['calculatorClass']]);
 	}
 
-	/**
-	 * @param Configurator $config
-	 */
 	public static function register(Configurator $config): void
 	{
-		$config->onCompile[] = function (Configurator $config, Compiler $compiler) {
-			$compiler->addExtension('priceCalculator', new PriceCalculatorExtension);
+		$config->onCompile[] = function (Configurator $config, Compiler $compiler): void {
+			$compiler->addExtension('priceCalculator', new self);
 		};
 	}
 }
