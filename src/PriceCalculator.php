@@ -2,19 +2,19 @@
 
 namespace Sunfox\PriceCalculator;
 
-use Nette;
+use Nette\SmartObject;
 
 /**
  * @property float $basePrice
- * @property IDiscount $discount
+ * @property IDiscount|NULL $discount
  * @property float $price
  * @property float $vatRate
  * @property float $priceVat
  * @property float $decimalPoints
  */
-class PriceCalculator implements IPriceCalculator
+final class PriceCalculator implements IPriceCalculator
 {
-	use Nette\SmartObject;
+	use SmartObject;
 
 	/**
 	 * @var float
@@ -51,12 +51,7 @@ class PriceCalculator implements IPriceCalculator
 	 */
 	protected $calculateFrom = self::FROM_BASEPRICE;
 
-	/**
-	 * @param int|float VAT rate
-	 * @param int|float Price without VAT and discount
-	 * @param int|float Discount without VAT
-	 */
-	public function __construct($vatRate = 0.0, $basePrice = 0.0, IDiscount $discount = NULL)
+	public function __construct(float $vatRate = 0.0, float $basePrice = 0.0, ?IDiscount $discount = NULL)
 	{
 		$this->setVatRate($vatRate);
 		$this->setBasePrice($basePrice);
@@ -65,46 +60,34 @@ class PriceCalculator implements IPriceCalculator
 
 	/**
 	 * Get price without VAT and discount.
-	 *
-	 * @return float
 	 */
-	public function getBasePrice()
+	public function getBasePrice(): float
 	{
 		return $this->basePrice;
 	}
 
 	/**
 	 * Set price without VAT and discount.
-	 *
-	 * @param int|float $value
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setBasePrice($value)
+	public function setBasePrice(float $value): self
 	{
-		$this->basePrice = (float) $value;
+		$this->basePrice = $value;
 		$this->calculateFrom = self::FROM_BASEPRICE;
 		return $this;
 	}
 
 	/**
 	 * Get discount in percent without VAT.
-	 *
-	 * @return IDiscount
 	 */
-	public function getDiscount()
+	public function getDiscount(): IDiscount
 	{
 		return $this->discount;
 	}
 
 	/**
 	 * Set discount instance.
-	 *
-	 * @param IDiscount $discount
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setDiscount(IDiscount $discount = NULL)
+	public function setDiscount(?IDiscount $discount): self
 	{
 		$this->discount = $discount;
 		return $this;
@@ -112,12 +95,8 @@ class PriceCalculator implements IPriceCalculator
 
 	/**
 	 * Set amount discount.
-	 *
-	 * @param int|float $value
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setAmountDiscount($value)
+	public function setAmountDiscount(float $value): self
 	{
 		$this->discount = new Discount\AmountDiscount($value);
 		return $this;
@@ -125,12 +104,8 @@ class PriceCalculator implements IPriceCalculator
 
 	/**
 	 * Set percent discount.
-	 *
-	 * @param int|float $value
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setPercentDiscount($value)
+	public function setPercentDiscount(float $value): self
 	{
 		$this->discount = new Discount\PercentDiscount($value);
 		return $this;
@@ -138,104 +113,78 @@ class PriceCalculator implements IPriceCalculator
 
 	/**
 	 * Get price after discount without VAT.
-	 *
-	 * @return float
 	 */
-	public function getPrice()
+	public function getPrice(): float
 	{
 		return $this->price;
 	}
 
 	/**
 	 * Set price after discount without VAT.
-	 *
-	 * @param int|float $value
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setPrice($value)
+	public function setPrice(float $value): self
 	{
-		$this->price = (float) $value;
+		$this->price = $value;
 		$this->calculateFrom = self::FROM_PRICE;
 		return $this;
 	}
 
 	/**
 	 * Get VAT rate in percent.
-	 *
-	 * @return float
 	 */
-	public function getVatRate()
+	public function getVatRate(): float
 	{
 		return $this->vatRate;
 	}
 
 	/**
 	 * Set VAT rate in percent.
-	 *
-	 * @param int|float $value
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setVatRate($value)
+	public function setVatRate(float $value): self
 	{
-		$this->vatRate = (float) $value;
+		$this->vatRate = $value;
 		return $this;
 	}
 
 	/**
 	 * Get price after discount with VAT.
-	 *
-	 * @return float
 	 */
-	public function getPriceVat()
+	public function getPriceVat(): float
 	{
 		return $this->priceVat;
 	}
 
 	/**
 	 * Set price after discount with VAT.
-	 *
-	 * @param int|float $value
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setPriceVat($value)
+	public function setPriceVat(float $value): self
 	{
-		$this->priceVat = (float) $value;
+		$this->priceVat = $value;
 		$this->calculateFrom = self::FROM_PRICEVAT;
 		return $this;
 	}
 
 	/**
 	 * Get decimal point for rounding.
-	 *
-	 * @return float
 	 */
-	public function getDecimalPoints()
+	public function getDecimalPoints(): float
 	{
 		return $this->decimalPoints;
 	}
 
 	/**
 	 * Set decimal point for rounding.
-	 *
-	 * @param int $value
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function setDecimalPoints($value)
+	public function setDecimalPoints(int $value): self
 	{
-		$this->decimalPoints = (int) $value;
+		$this->decimalPoints = $value;
 		return $this;
 	}
 
 	/**
 	 * Calculate prices and return result.
-	 *
-	 * @return PriceCalculatorResult
 	 */
-	public function calculate()
+	public function calculate(): PriceCalculatorResult
 	{
 		$basePrice = round($this->basePrice, $this->decimalPoints);
 		$price = round($this->price, $this->decimalPoints);

@@ -2,7 +2,9 @@
 
 namespace Sunfox\Tests;
 
-use Nette;
+use Nette\Configurator;
+use Nette\DI\Container;
+use Sunfox\PriceCalculator\PriceCalculator;
 use Tester;
 use Tester\Assert;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;
@@ -10,25 +12,23 @@ use Sunfox\PriceCalculator\DI\PriceCalculatorExtension;
 
 require_once __DIR__ . '/bootstrap.php';
 
-class PriceCalculatorExtensionTest extends Tester\TestCase
+final class PriceCalculatorExtensionTest extends Tester\TestCase
 {
-	/**
-	 * @return Nette\DI\Container
-	 */
-	protected function createContainer()
+	protected function createContainer(): Container
 	{
-		$config = new Nette\Configurator();
+		$config = new Configurator();
 		$config->setTempDirectory(TEMP_DIR);
 		PriceCalculatorExtension::register($config);
 
 		return $config->createContainer();
 	}
 
-	public function testDI()
+	public function testDI(): void
 	{
 		$dic = $this->createContainer();
 
-		Assert::true($dic->getService('priceCalculator.factory') instanceof PriceCalculatorFactory);
+		Assert::type(PriceCalculatorFactory::class, $dic->getService('priceCalculator.factory'));
+		Assert::type(PriceCalculator::class, $dic->getService('priceCalculator.factory')->create());
 	}
 }
 

@@ -2,33 +2,36 @@
 
 namespace Sunfox\PriceCalculator\DI;
 
-use Nette;
+use Nette\Configurator;
 use Nette\DI\Compiler;
+use Nette\DI\CompilerExtension;
+use Sunfox\PriceCalculator\PriceCalculator;
+use Sunfox\PriceCalculator\PriceCalculatorFactory;
 
-class PriceCalculatorExtension extends Nette\DI\CompilerExtension
+final class PriceCalculatorExtension extends CompilerExtension
 {
 	/**
 	 * @var array
 	 */
 	private $defaults = [
-		'calculatorClass' => 'Sunfox\PriceCalculator\PriceCalculator',
+		'calculatorClass' => PriceCalculator::class,
 	];
 
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('factory'))
-			->setClass('Sunfox\PriceCalculator\PriceCalculatorFactory', [$config]);
+			->setFactory(PriceCalculatorFactory::class, [$config['calculatorClass']]);
 	}
 
 	/**
-	 * @param Nette\Configurator $config
+	 * @param Configurator $config
 	 */
-	public static function register(Nette\Configurator $config)
+	public static function register(Configurator $config): void
 	{
-		$config->onCompile[] = function ($config, Compiler $compiler) {
+		$config->onCompile[] = function (Configurator $config, Compiler $compiler) {
 			$compiler->addExtension('priceCalculator', new PriceCalculatorExtension);
 		};
 	}

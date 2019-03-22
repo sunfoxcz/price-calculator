@@ -6,30 +6,23 @@ interface IDiscount
 {
 	/**
 	 * Get discount value.
-	 *
-	 * @return float
 	 */
-	public function getValue();
+	public function getValue(): float;
 
 	/**
 	 * Set discount value.
 	 *
-	 * @param int|float
 	 * @return IDiscount
 	 */
-	public function setValue($value);
+	public function setValue(float $value);
 
 	/**
 	 * Returns price after discount.
-	 * @param float
-	 * @return float
 	 */
-	public function addDiscount($price);
+	public function addDiscount(float $price): float;
 
 	/**
 	 * Returns price before discount.
-	 * @param float
-	 * @return float
 	 */
-	public function removeDiscount($price);
+	public function removeDiscount(float $price): float;
 }

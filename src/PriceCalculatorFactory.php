@@ -2,7 +2,7 @@
 
 namespace Sunfox\PriceCalculator;
 
-class PriceCalculatorFactory
+final class PriceCalculatorFactory
 {
 	/**
 	 * @var string
@@ -12,39 +12,31 @@ class PriceCalculatorFactory
 	/**
 	 * @param string Class name with full namespace.
 	 */
-	public function __construct($class = 'Sunfox\PriceCalculator\PriceCalculator')
+	public function __construct($class = PriceCalculator::class)
 	{
 		$this->class = $class;
 	}
 
 	/**
 	 * Create and return PriceCalculator instance.
-	 *
-	 * @return IPriceCalculator
 	 */
-	public function create()
+	public function create(): IPriceCalculator
 	{
 		return new $this->class;
 	}
 
 	/**
 	 * Get class name.
-	 *
-	 * @return string
 	 */
-	public function getClass()
+	public function getClass(): string
 	{
 		return $this->class;
 	}
 
 	/**
 	 * Set class name.
-	 *
-	 * @param string $class
-	 *
-	 * @return PriceCalculatorFactory
 	 */
-	public function setClass($class)
+	public function setClass(string $class): self
 	{
 		$this->class = $class;
 		return $this;

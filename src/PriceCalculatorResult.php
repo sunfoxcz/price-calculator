@@ -7,13 +7,13 @@ use Nette;
 /**
  * @property IPriceCalculator $calculator
  * @property float $basePrice
- * @property float $discount
+ * @property IDiscount|NULL $discount
  * @property float $price
  * @property float $vatRate
  * @property float $vat
  * @property float $priceVat
  */
-class PriceCalculatorResult
+final class PriceCalculatorResult
 {
 	use Nette\SmartObject;
 
@@ -28,9 +28,9 @@ class PriceCalculatorResult
 	protected $basePrice = 0.0;
 
 	/**
-	 * @var float
+	 * @var IDiscount|NULL
 	 */
-	protected $discount = 0.0;
+	protected $discount;
 
 	/**
 	 * @var float
@@ -64,7 +64,7 @@ class PriceCalculatorResult
 	public function __construct(
 		IPriceCalculator $calculator,
 		$basePrice,
-		IDiscount $discount = NULL,
+		?IDiscount $discount,
 		$price,
 		$vatRate,
 		$vat,
@@ -102,7 +102,7 @@ class PriceCalculatorResult
 	/**
 	 * Get discount in percent without VAT.
 	 *
-	 * @return float
+	 * @return IDiscount|NULL
 	 */
 	public function getDiscount()
 	{
@@ -158,7 +158,7 @@ class PriceCalculatorResult
 	{
 		return [
 			'basePrice' => $this->basePrice,
-			'discount' => $this->discount ? $this->discount->value : 0.0,
+			'discount' => $this->discount ? $this->discount->getValue() : 0.0,
 			'price' => $this->price,
 			'vatRate' => $this->vatRate,
 			'vat' => $this->vat,

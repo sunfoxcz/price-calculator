@@ -2,25 +2,27 @@
 
 namespace Sunfox\Tests;
 
+use Sunfox\PriceCalculator\Discount\AmountDiscount;
+use Sunfox\PriceCalculator\Discount\PercentDiscount;
 use Tester;
 use Tester\Assert;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;
 
 require __DIR__ . '/bootstrap.php';
 
-class PriceCalculatorTest extends Tester\TestCase
+final class PriceCalculatorTest extends Tester\TestCase
 {
 	/**
 	 * @var PriceCalculatorFactory
 	 */
 	private $factory;
 
-	public function setup()
+	public function setup(): void
 	{
 		$this->factory = new PriceCalculatorFactory();
 	}
 
-	public function testToArray()
+	public function testToArray(): void
 	{
 		$result = $this->factory->create()
 			->setBasePrice(1983.48)
@@ -38,7 +40,7 @@ class PriceCalculatorTest extends Tester\TestCase
 		], $result->toArray());
 	}
 
-	public function testGetCalculator()
+	public function testGetCalculator(): void
 	{
 		$calculator = $this->factory->create()
 			->setBasePrice(1983.48)
@@ -49,7 +51,7 @@ class PriceCalculatorTest extends Tester\TestCase
 		Assert::same($calculator, $result->calculator);
 	}
 
-	public function testSetBasePriceAmoutDiscount()
+	public function testSetBasePriceAmoutDiscount(): void
 	{
 		$result = $this->factory->create()
 			->setBasePrice(1983.48)
@@ -58,6 +60,7 @@ class PriceCalculatorTest extends Tester\TestCase
 			->calculate();
 
 		Assert::equal(1983.48, $result->basePrice);
+		Assert::type(AmountDiscount::class, $result->discount);
 		Assert::equal(500.0, $result->discount->value);
 		Assert::equal(1483.48, $result->price);
 		Assert::equal(21.0, $result->vatRate);
@@ -65,7 +68,7 @@ class PriceCalculatorTest extends Tester\TestCase
 		Assert::equal(1795.01, $result->priceVat);
 	}
 
-	public function testSetBasePricePercentDiscount()
+	public function testSetBasePricePercentDiscount(): void
 	{
 		$result = $this->factory->create()
 			->setBasePrice(1983.48)
@@ -74,6 +77,7 @@ class PriceCalculatorTest extends Tester\TestCase
 			->calculate();
 
 		Assert::equal(1983.48, $result->basePrice);
+        Assert::type(PercentDiscount::class, $result->discount);
 		Assert::equal(10.0, $result->discount->value);
 		Assert::equal(1785.13, $result->price);
 		Assert::equal(21.0, $result->vatRate);
@@ -81,7 +85,7 @@ class PriceCalculatorTest extends Tester\TestCase
 		Assert::equal(2160.01, $result->priceVat);
 	}
 
-	public function testSetPriceAmountDiscount()
+	public function testSetPriceAmountDiscount(): void
 	{
 		$result = $this->factory->create()
 			->setPrice(1785.13)
@@ -97,7 +101,7 @@ class PriceCalculatorTest extends Tester\TestCase
 		Assert::equal(2160.01, $result->priceVat);
 	}
 
-	public function testSetPricePercentDiscount()
+	public function testSetPricePercentDiscount(): void
 	{
 		$result = $this->factory->create()
 			->setPrice(1785.13)
@@ -113,7 +117,7 @@ class PriceCalculatorTest extends Tester\TestCase
 		Assert::equal(2160.01, $result->priceVat);
 	}
 
-	public function testSetPriceVatAmountDiscount()
+	public function testSetPriceVatAmountDiscount(): void
 	{
 		$result = $this->factory->create()
 			->setPriceVat(2160.01)
@@ -129,7 +133,7 @@ class PriceCalculatorTest extends Tester\TestCase
 		Assert::equal(2160.01, $result->priceVat);
 	}
 
-	public function testSetPriceVatPercentDiscount()
+	public function testSetPriceVatPercentDiscount(): void
 	{
 		$result = $this->factory->create()
 			->setPriceVat(2160.01)

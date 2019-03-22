@@ -4,109 +4,84 @@ namespace Sunfox\PriceCalculator;
 
 interface IPriceCalculator
 {
-	const FROM_BASEPRICE = 'basePrice';
-	const FROM_PRICE = 'price';
-	const FROM_PRICEVAT = 'priceVat';
+	public const FROM_BASEPRICE = 'basePrice';
+	public const FROM_PRICE = 'price';
+	public const FROM_PRICEVAT = 'priceVat';
 
 	/**
 	 * Get price without VAT and discount.
-	 *
-	 * @return float
 	 */
-	public function getBasePrice();
+	public function getBasePrice(): float;
 
 	/**
 	 * Set price without VAT and discount.
 	 *
-	 * @param int|float $value
 	 * @return IPriceCalculator
 	 */
-	public function setBasePrice($value);
+	public function setBasePrice(float $value);
 
 	/**
 	 * Get discount in percent without VAT.
-	 *
-	 * @return float
 	 */
-	public function getDiscount();
+	public function getDiscount(): IDiscount;
 
 	/**
 	 * Set discount in percent without VAT.
 	 *
-	 * @param IDiscount $discount
-	 *
 	 * @return IPriceCalculator
 	 */
-	public function setDiscount(IDiscount $discount = NULL);
+	public function setDiscount(?IDiscount $discount);
 
 	/**
 	 * Get price after discount without VAT.
-	 *
-	 * @return float
 	 */
-	public function getPrice();
+	public function getPrice(): float;
 
 	/**
 	 * Set price after discount without VAT.
 	 *
-	 * @param int|float $value
-	 *
 	 * @return IPriceCalculator
 	 */
-	public function setPrice($value);
+	public function setPrice(float $value);
 
 	/**
 	 * Get VAT rate in percent.
-	 *
-	 * @return float
 	 */
-	public function getVatRate();
+	public function getVatRate(): float;
 
 	/**
 	 * Set VAT rate in percent.
 	 *
-	 * @param int|float $value
-	 *
 	 * @return IPriceCalculator
 	 */
-	public function setVatRate($value);
+	public function setVatRate(float $value);
 
 	/**
 	 * Get price after discount with VAT.
-	 *
-	 * @return float
 	 */
-	public function getPriceVat();
+	public function getPriceVat(): float;
 
 	/**
 	 * Set price after discount with VAT.
 	 *
-	 * @param int|float $value
-	 *
 	 * @return IPriceCalculator
 	 */
-	public function setPriceVat($value);
+	public function setPriceVat(float $value);
 
 	/**
 	 * Get decimal point for rounding.
-	 *
-	 * @return float
 	 */
-	public function getDecimalPoints();
+	public function getDecimalPoints(): float;
 
 	/**
 	 * Set decimal point for rounding.
 	 *
-	 * @param int $value
-	 *
 	 * @return IPriceCalculator
 	 */
-	public function setDecimalPoints($value);
+	public function setDecimalPoints(int $value);
 
 	/**
 	 * Calculate prices and return result.
-	 *
-	 * @return PriceCalculatorResult
 	 */
-	public function calculate();
+	public function calculate(): PriceCalculatorResult;
 }
