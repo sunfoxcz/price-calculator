@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Sunfox\Tests;
+namespace Sunfox\PriceCalculatorTests;
 
 use Nette\Configurator;
 use Nette\DI\Container;
 use Sunfox\PriceCalculator\PriceCalculator;
+use Sunfox\PriceCalculatorTests\Mocks\PriceCalculatorMock;
 use Tester;
 use Tester\Assert;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;
@@ -29,6 +30,15 @@ final class PriceCalculatorExtensionTest extends Tester\TestCase
 
 		Assert::type(PriceCalculatorFactory::class, $dic->getService('priceCalculator.factory'));
 		Assert::type(PriceCalculator::class, $dic->getService('priceCalculator.factory')->create());
+	}
+
+	public function testCustomCalculatorClass(): void
+	{
+		$factory = new PriceCalculatorFactory(PriceCalculatorMock::class);
+
+		Assert::same(PriceCalculatorMock::class, $factory->getClass());
+		Assert::same($factory, $factory->setClass(PriceCalculatorMock::class));
+		Assert::type(PriceCalculatorMock::class, $factory->create());
 	}
 }
 

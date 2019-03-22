@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Sunfox\Tests;
+namespace Sunfox\PriceCalculatorTests;
 
 use Sunfox\PriceCalculator\Discount\AmountDiscount;
 use Sunfox\PriceCalculator\Discount\PercentDiscount;
@@ -51,6 +51,22 @@ final class PriceCalculatorTest extends Tester\TestCase
 		Assert::same($calculator, $result->calculator);
 	}
 
+	public function testCalculatorGetters(): void
+	{
+		$calculator = $this->factory->create()
+			->setBasePrice(1983.48)
+			->setAmountDiscount(500)
+			->setVatRate(21);
+
+		Assert::equal(1983.48, $calculator->basePrice);
+		Assert::type(AmountDiscount::class, $calculator->discount);
+		Assert::equal(500.0, $calculator->discount->value);
+		Assert::equal(0.0, $calculator->price);
+		Assert::equal(21.0, $calculator->vatRate);
+		Assert::equal(0.0, $calculator->priceVat);
+		Assert::equal(2, $calculator->decimalPoints);
+	}
+
 	public function testSetBasePriceAmoutDiscount(): void
 	{
 		$result = $this->factory->create()
@@ -77,7 +93,7 @@ final class PriceCalculatorTest extends Tester\TestCase
 			->calculate();
 
 		Assert::equal(1983.48, $result->basePrice);
-        Assert::type(PercentDiscount::class, $result->discount);
+		Assert::type(PercentDiscount::class, $result->discount);
 		Assert::equal(10.0, $result->discount->value);
 		Assert::equal(1785.13, $result->price);
 		Assert::equal(21.0, $result->vatRate);

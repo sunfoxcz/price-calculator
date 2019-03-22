@@ -27,5 +27,10 @@
 			"Sunfox\\PriceCalculator\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Sunfox\\PriceCalculatorTests\\": "tests/"
+		}
+	},
 	"minimum-stability": "dev"
 }

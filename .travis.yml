@@ -17,7 +17,7 @@ install:
     - travis_retry composer update --no-progress --no-suggest --prefer-dist $COMPOSER_EXTRA_ARGS
 
 script:
-    - vendor/bin/tester -s -c tests/php.ini tests
+    - vendor/bin/tester -s tests
 
 after_failure:
     # Print *.actual content
