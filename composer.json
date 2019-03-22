@@ -20,7 +20,7 @@
 	},
 	"require-dev": {
 		"nette/tester": "^2.2",
-		"nette/bootstrap": "^2.4"
+		"nette/bootstrap": "^2.4.5"
 	},
 	"autoload": {
 		"psr-4": {
