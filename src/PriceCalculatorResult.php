@@ -4,7 +4,6 @@ namespace Sunfox\PriceCalculator;
 
 use Nette;
 
-
 /**
  * @property IPriceCalculator $calculator
  * @property float $basePrice
@@ -18,40 +17,59 @@ class PriceCalculatorResult
 {
 	use Nette\SmartObject;
 
-	/** @var IPriceCalculator */
+	/**
+	 * @var IPriceCalculator
+	 */
 	protected $calculator;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $basePrice = 0.0;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $discount = 0.0;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $price = 0.0;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $vatRate = 0.0;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $vat = 0.0;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $priceVat = 0.0;
 
-
 	/**
-	 * @param IPriceCalculator
-	 * @param float
-	 * @param float
-	 * @param float
-	 * @param float
-	 * @param float
-	 * @param float
+	 * @param IPriceCalculator $calculator
+	 * @param float $basePrice
+	 * @param float $discount
+	 * @param float $price
+	 * @param float $vatRate
+	 * @param float $vat
+	 * @param float $priceVat
 	 */
-	public function __construct(IPriceCalculator $calculator, $basePrice, IDiscount $discount = NULL,
-								$price, $vatRate, $vat, $priceVat)
-	{
+	public function __construct(
+		IPriceCalculator $calculator,
+		$basePrice,
+		IDiscount $discount = NULL,
+		$price,
+		$vatRate,
+		$vat,
+		$priceVat
+	) {
 		$this->calculator = $calculator;
 		$this->basePrice = $basePrice;
 		$this->discount = $discount;
@@ -147,5 +165,4 @@ class PriceCalculatorResult
 			'priceVat' => $this->priceVat,
 		];
 	}
-
 }

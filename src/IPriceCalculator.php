@@ -2,13 +2,11 @@
 
 namespace Sunfox\PriceCalculator;
 
-
 interface IPriceCalculator
 {
-	const FROM_BASEPRICE = 'basePrice',
-		FROM_PRICE = 'price',
-		FROM_PRICEVAT = 'priceVat';
-
+	const FROM_BASEPRICE = 'basePrice';
+	const FROM_PRICE = 'price';
+	const FROM_PRICEVAT = 'priceVat';
 
 	/**
 	 * Get price without VAT and discount.
@@ -20,7 +18,7 @@ interface IPriceCalculator
 	/**
 	 * Set price without VAT and discount.
 	 *
-	 * @param int|float
+	 * @param int|float $value
 	 * @return IPriceCalculator
 	 */
 	public function setBasePrice($value);
@@ -35,7 +33,8 @@ interface IPriceCalculator
 	/**
 	 * Set discount in percent without VAT.
 	 *
-	 * @param IDiscount
+	 * @param IDiscount $discount
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setDiscount(IDiscount $discount = NULL);
@@ -50,7 +49,8 @@ interface IPriceCalculator
 	/**
 	 * Set price after discount without VAT.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setPrice($value);
@@ -65,7 +65,8 @@ interface IPriceCalculator
 	/**
 	 * Set VAT rate in percent.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setVatRate($value);
@@ -80,7 +81,8 @@ interface IPriceCalculator
 	/**
 	 * Set price after discount with VAT.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setPriceVat($value);
@@ -95,7 +97,8 @@ interface IPriceCalculator
 	/**
 	 * Set decimal point for rounding.
 	 *
-	 * @param int
+	 * @param int $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setDecimalPoints($value);
@@ -106,5 +109,4 @@ interface IPriceCalculator
 	 * @return PriceCalculatorResult
 	 */
 	public function calculate();
-
 }

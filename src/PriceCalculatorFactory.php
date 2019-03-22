@@ -2,14 +2,12 @@
 
 namespace Sunfox\PriceCalculator;
 
-use Nette;
-
-
 class PriceCalculatorFactory
 {
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	protected $class;
-
 
 	/**
 	 * @param string Class name with full namespace.
@@ -42,7 +40,8 @@ class PriceCalculatorFactory
 	/**
 	 * Set class name.
 	 *
-	 * @param string
+	 * @param string $class
+	 *
 	 * @return PriceCalculatorFactory
 	 */
 	public function setClass($class)
@@ -50,5 +49,4 @@ class PriceCalculatorFactory
 		$this->class = $class;
 		return $this;
 	}
-
 }

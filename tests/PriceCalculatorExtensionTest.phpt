@@ -8,13 +8,10 @@ use Tester\Assert;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;
 use Sunfox\PriceCalculator\DI\PriceCalculatorExtension;
 
-
 require_once __DIR__ . '/bootstrap.php';
-
 
 class PriceCalculatorExtensionTest extends Tester\TestCase
 {
-
 	/**
 	 * @return Nette\DI\Container
 	 */
@@ -33,9 +30,6 @@ class PriceCalculatorExtensionTest extends Tester\TestCase
 
 		Assert::true($dic->getService('priceCalculator.factory') instanceof PriceCalculatorFactory);
 	}
-
 }
 
-
-$test = new PriceCalculatorExtensionTest;
-$test->run();
+(new PriceCalculatorExtensionTest)->run();

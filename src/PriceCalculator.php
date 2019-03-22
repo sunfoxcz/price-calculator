@@ -4,7 +4,6 @@ namespace Sunfox\PriceCalculator;
 
 use Nette;
 
-
 /**
  * @property float $basePrice
  * @property IDiscount $discount
@@ -17,27 +16,40 @@ class PriceCalculator implements IPriceCalculator
 {
 	use Nette\SmartObject;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $basePrice = 0.0;
 
-	/** @var IDiscount|NULL */
-	protected $discount = NULL;
+	/**
+	 * @var IDiscount|NULL
+	 */
+	protected $discount;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $price = 0.0;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $vatRate = 0.0;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $priceVat = 0.0;
 
-	/** @var int */
+	/**
+	 * @var int
+	 */
 	protected $decimalPoints = 2;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	protected $calculateFrom = self::FROM_BASEPRICE;
-
 
 	/**
 	 * @param int|float VAT rate
@@ -64,7 +76,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set price without VAT and discount.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setBasePrice($value)
@@ -87,7 +100,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set discount instance.
 	 *
-	 * @param IDiscount
+	 * @param IDiscount $discount
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setDiscount(IDiscount $discount = NULL)
@@ -99,7 +113,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set amount discount.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setAmountDiscount($value)
@@ -111,7 +126,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set percent discount.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setPercentDiscount($value)
@@ -133,7 +149,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set price after discount without VAT.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setPrice($value)
@@ -156,7 +173,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set VAT rate in percent.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setVatRate($value)
@@ -178,7 +196,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set price after discount with VAT.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setPriceVat($value)
@@ -201,7 +220,8 @@ class PriceCalculator implements IPriceCalculator
 	/**
 	 * Set decimal point for rounding.
 	 *
-	 * @param int
+	 * @param int $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setDecimalPoints($value)
@@ -238,5 +258,4 @@ class PriceCalculator implements IPriceCalculator
 			$this, $basePrice, $this->discount, $price, $this->vatRate, $vat, $priceVat
 		);
 	}
-
 }

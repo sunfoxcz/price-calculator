@@ -2,12 +2,8 @@
 
 namespace Sunfox\PriceCalculator;
 
-use Nette;
-
-
 interface IDiscount
 {
-
 	/**
 	 * Get discount value.
 	 *
@@ -36,5 +32,4 @@ interface IDiscount
 	 * @return float
 	 */
 	public function removeDiscount($price);
-
 }

@@ -2,7 +2,6 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-
 use Sunfox\PriceCalculator;
 
 $calc = (new PriceCalculator\PriceCalculator)
@@ -13,7 +12,6 @@ $calc = (new PriceCalculator\PriceCalculator)
 echo "------------------------------------------------------------\n";
 echo "RESULT:\n";
 echo "------------------------------------------------------------\n";
-foreach ($calc->calculate()->toArray() as $k => $v)
-{
+foreach ($calc->calculate()->toArray() as $k => $v) {
 	echo "{$k}: {$v}\n";
 }

@@ -4,7 +4,6 @@ namespace Sunfox\PriceCalculator\Discount;
 
 use Nette;
 
-
 /**
  * @property float $value
  */
@@ -12,12 +11,13 @@ class PercentDiscount implements \Sunfox\PriceCalculator\IDiscount
 {
 	use Nette\SmartObject;
 
-	/** @var float */
+	/**
+	 * @var float
+	 */
 	protected $value = 0.0;
 
-
 	/**
-	 * @param int|float
+	 * @param int|float $value
 	 */
 	public function __construct($value)
 	{
@@ -37,7 +37,8 @@ class PercentDiscount implements \Sunfox\PriceCalculator\IDiscount
 	/**
 	 * Set discount value.
 	 *
-	 * @param int|float
+	 * @param int|float $value
+	 *
 	 * @return IPriceCalculator
 	 */
 	public function setValue($value)
@@ -48,7 +49,9 @@ class PercentDiscount implements \Sunfox\PriceCalculator\IDiscount
 
 	/**
 	 * Returns price after discount.
-	 * @param float
+	 *
+	 * @param float $price
+	 *
 	 * @return float
 	 */
 	public function addDiscount($price)
@@ -58,12 +61,13 @@ class PercentDiscount implements \Sunfox\PriceCalculator\IDiscount
 
 	/**
 	 * Returns price before discount.
-	 * @param float
+	 *
+	 * @param float $price
+	 *
 	 * @return float
 	 */
 	public function removeDiscount($price)
 	{
 		return $price / (1 - $this->value / 100);
 	}
-
 }

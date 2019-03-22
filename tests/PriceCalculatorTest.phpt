@@ -6,13 +6,13 @@ use Tester;
 use Tester\Assert;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;
 
-
 require __DIR__ . '/bootstrap.php';
-
 
 class PriceCalculatorTest extends Tester\TestCase
 {
-	/** @var PriceCalculatorFactory */
+	/**
+	 * @var PriceCalculatorFactory
+	 */
 	private $factory;
 
 	public function setup()
@@ -144,9 +144,6 @@ class PriceCalculatorTest extends Tester\TestCase
 		Assert::equal(374.88, $result->vat);
 		Assert::equal(2160.01, $result->priceVat);
 	}
-
 }
 
-
-$test = new PriceCalculatorTest;
-$test->run();
+(new PriceCalculatorTest)->run();
