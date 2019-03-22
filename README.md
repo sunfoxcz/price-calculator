@@ -1,25 +1,30 @@
-Price calculator library
-===============
+# Price calculator library
 
 [![Build Status](https://travis-ci.org/sunfoxcz/price-calculator.svg?branch=master)](https://travis-ci.org/sunfoxcz/price-calculator)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/?branch=master)
 
 Library for easier price calculation using VAT and discount.
 
-Installation
-------------
+## Installation
 
-	composer require sunfoxcz/price-calculator:@dev
+```bash
+composer require sunfoxcz/price-calculator:@dev
+```
 
-Usage
------
+## Usage
 
 ```php
-use Sunfox\PriceCalculator;
+<?php declare(strict_types=1);
 
-$result = (new PriceCalculator\PriceCalculator)
+use Sunfox\PriceCalculator\Discount\PercentDiscount;
+use Sunfox\PriceCalculator\PriceCalculator;
+
+$calc = (new PriceCalculator)
 	->setBasePrice(1983.48)
-	->setDiscount(10)
-	->setVatRate(21)
-	->calculate();
+	->setDiscount(new PercentDiscount(10))
+	->setVatRate(21);
+
+foreach ($calc->calculate()->toArray() as $k => $v) {
+	echo "{$k}: {$v}\n";
+}
 ```
