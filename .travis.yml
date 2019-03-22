@@ -4,21 +4,49 @@ php:
     - 7.2
     - 7.3
 
+env:
+    - COMPOSER_EXTRA_ARGS=""
+    - COMPOSER_EXTRA_ARGS="--prefer-stable"
+    - COMPOSER_EXTRA_ARGS="--prefer-stable --prefer-lowest"
+
+before_install:
+    # turn off XDebug
+    - phpenv config-rm xdebug.ini || return 0
+
+install:
+    - travis_retry composer update --no-progress --no-suggest --prefer-dist $COMPOSER_EXTRA_ARGS
+
 script:
-    - vendor/bin/tester tests -s -p php $FLAGS
+    - vendor/bin/tester -s -c tests/php.ini tests
 
 after_failure:
     # Print *.actual content
     - for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
 
-before_script:
-    # Install Nette Tester & Code Checker
-    - composer install --no-interaction --dev --prefer-source
-    - if [[ "$TRAVIS_PHP_VERSION" = "7.1" ]]; then FLAGS="-d extension=xdebug.so --coverage coverage.xml --coverage-src src"; fi;
+jobs:
+    include:
+        -   stage: Coding Standard
+            install:
+                - travis_retry composer create-project --no-dev --no-progress --prefer-dist sunfoxcz/coding-standard:dev-master coding-standard
+            script:
+                - coding-standard/vendor/bin/ecs check --no-progress-bar src
 
-after_script:
-    - |
-        if [ $TRAVIS_PHP_VERSION = '7.1' ]; then
-            wget https://scrutinizer-ci.com/ocular.phar
-            php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-        fi
+        -   stage: Code Coverage
+            script:
+                - vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src
+            after_script:
+                - wget https://scrutinizer-ci.com/ocular.phar
+                - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+
+    allow_failures:
+        -   stage: Code Coverage
+
+sudo: false
+
+cache:
+    directories:
+        - .ecs_cache
+        - $HOME/.composer/cache
+
+notifications:
+    email: false

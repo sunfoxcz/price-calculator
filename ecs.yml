@@ -1,0 +1,10 @@
+imports:
+    - { resource: 'vendor/sunfoxcz/coding-standard/config/sunfox.yml' }
+
+parameters:
+    cache_directory: .ecs_cache
+    indentation: tab
+    skip:
+        # For now
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:MissingReturnTypeHint: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification: ~

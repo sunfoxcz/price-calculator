@@ -1,8 +1,0 @@
-[
-	'basePrice' => 1983.48,
-	'discount' => 10.0,
-	'price' => 1785.13,
-	'vatRate' => 21.0,
-	'vat' => 374.88,
-	'priceVat' => 2160.01,
-]
