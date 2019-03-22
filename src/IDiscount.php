@@ -12,7 +12,7 @@ interface IDiscount
 	/**
 	 * Set discount value.
 	 */
-	public function setValue(float $value): self;
+	public function setValue(float $value): IDiscount;
 
 	/**
 	 * Returns price after discount.

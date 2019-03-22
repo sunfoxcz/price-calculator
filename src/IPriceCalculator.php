@@ -16,7 +16,7 @@ interface IPriceCalculator
 	/**
 	 * Set price without VAT and discount.
 	 */
-	public function setBasePrice(float $value): self;
+	public function setBasePrice(float $value): IPriceCalculator;
 
 	/**
 	 * Get discount in percent without VAT.
@@ -26,7 +26,7 @@ interface IPriceCalculator
 	/**
 	 * Set discount in percent without VAT.
 	 */
-	public function setDiscount(?IDiscount $discount): self;
+	public function setDiscount(?IDiscount $discount): IPriceCalculator;
 
 	/**
 	 * Get price after discount without VAT.
@@ -36,7 +36,7 @@ interface IPriceCalculator
 	/**
 	 * Set price after discount without VAT.
 	 */
-	public function setPrice(float $value): self;
+	public function setPrice(float $value): IPriceCalculator;
 
 	/**
 	 * Get VAT rate in percent.
@@ -46,7 +46,7 @@ interface IPriceCalculator
 	/**
 	 * Set VAT rate in percent.
 	 */
-	public function setVatRate(float $value): self;
+	public function setVatRate(float $value): IPriceCalculator;
 
 	/**
 	 * Get price after discount with VAT.
@@ -56,7 +56,7 @@ interface IPriceCalculator
 	/**
 	 * Set price after discount with VAT.
 	 */
-	public function setPriceVat(float $value): self;
+	public function setPriceVat(float $value): IPriceCalculator;
 
 	/**
 	 * Get decimal point for rounding.
@@ -66,7 +66,7 @@ interface IPriceCalculator
 	/**
 	 * Set decimal point for rounding.
 	 */
-	public function setDecimalPoints(int $value): self;
+	public function setDecimalPoints(int $value): IPriceCalculator;
 
 	/**
 	 * Calculate prices and return result.
