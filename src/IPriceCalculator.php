@@ -21,7 +21,7 @@ interface IPriceCalculator
 	/**
 	 * Get discount in percent without VAT.
 	 */
-	public function getDiscount(): IDiscount;
+	public function getDiscount(): ?IDiscount;
 
 	/**
 	 * Set discount in percent without VAT.
@@ -61,7 +61,7 @@ interface IPriceCalculator
 	/**
 	 * Get decimal point for rounding.
 	 */
-	public function getDecimalPoints(): float;
+	public function getDecimalPoints(): int;
 
 	/**
 	 * Set decimal point for rounding.

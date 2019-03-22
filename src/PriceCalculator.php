@@ -10,7 +10,7 @@ use Nette\SmartObject;
  * @property float $price
  * @property float $vatRate
  * @property float $priceVat
- * @property float $decimalPoints
+ * @property int $decimalPoints
  */
 final class PriceCalculator implements IPriceCalculator
 {
@@ -79,7 +79,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Get discount in percent without VAT.
 	 */
-	public function getDiscount(): IDiscount
+	public function getDiscount(): ?IDiscount
 	{
 		return $this->discount;
 	}
@@ -167,7 +167,7 @@ final class PriceCalculator implements IPriceCalculator
 	/**
 	 * Get decimal point for rounding.
 	 */
-	public function getDecimalPoints(): float
+	public function getDecimalPoints(): int
 	{
 		return $this->decimalPoints;
 	}
