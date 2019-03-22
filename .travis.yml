@@ -39,6 +39,7 @@ jobs:
                 - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
     allow_failures:
+        -   stage: Coding Standard
         -   stage: Code Coverage
 
 sudo: false
