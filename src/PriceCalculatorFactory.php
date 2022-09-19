@@ -4,14 +4,12 @@ namespace Sunfox\PriceCalculator;
 
 final class PriceCalculatorFactory
 {
-	private string $class;
-
 	/**
 	 * Accepts class name with full namespace.
 	 */
-	public function __construct(string $class = PriceCalculator::class)
-	{
-		$this->class = $class;
+	public function __construct(
+		private string $class = PriceCalculator::class
+	) {
 	}
 
 	/**

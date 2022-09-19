@@ -12,11 +12,9 @@ final class PercentDiscount implements IDiscount
 {
 	use SmartObject;
 
-	protected float $value = 0.0;
-
-	public function __construct(float $value)
-	{
-		$this->setValue($value);
+	public function __construct(
+		protected float $value = 0.0
+	) {
 	}
 
 	/**
