@@ -1,6 +1,5 @@
 # Price calculator library
 
-[![Build Status](https://travis-ci.org/sunfoxcz/price-calculator.svg?branch=master)](https://travis-ci.org/sunfoxcz/price-calculator)
 [![Code Coverage](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/?branch=master)
 
