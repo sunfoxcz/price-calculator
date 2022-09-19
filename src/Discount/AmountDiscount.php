@@ -14,12 +14,9 @@ final class AmountDiscount implements IDiscount
 
 	protected float $value = 0.0;
 
-	/**
-	 * @param int|float $value
-	 */
-	public function __construct($value)
+	public function __construct(float $value)
 	{
-		$this->setValue((float) $value);
+		$this->setValue($value);
 	}
 
 	/**
