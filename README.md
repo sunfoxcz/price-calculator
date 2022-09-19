@@ -1,7 +1,15 @@
 # Price calculator library
 
-[![Code Coverage](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/?branch=master)
+<p align=center>
+    <a href="https://github.com/sunfoxcz/price-calculator/actions"><img src="https://badgen.net/github/checks/sunfoxcz/price-calculator/master?cache=300"></a>
+    <a href="https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/?branch=master"><img src="https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/badges/coverage.png?b=master"></a>
+    <a href="https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/?branch=master"><img src="https://scrutinizer-ci.com/g/sunfoxcz/price-calculator/badges/quality-score.png?b=master"></a>
+</p>
+<p align=center>
+    <a href="https://packagist.org/packages/sunfoxcz/price-calculator"><img src="https://badgen.net/packagist/v/sunfoxcz/price-calculator"></a>
+    <a href="https://packagist.org/packages/sunfoxcz/price-calculator"><img src="https://badgen.net/packagist/php/sunfoxcz/price-calculator"></a>
+    <a href="https://github.com/sunfoxcz/price-calculator"><img src="https://badgen.net/github/license/sunfoxcz/price-calculator"></a>
+</p>
 
 Library for easier price calculation using VAT and discount.
 
