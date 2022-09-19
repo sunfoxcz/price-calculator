@@ -12,17 +12,14 @@ final class AmountDiscount implements IDiscount
 {
 	use SmartObject;
 
-	/**
-	 * @var float
-	 */
-	protected $value = 0.0;
+	protected float $value = 0.0;
 
 	/**
 	 * @param int|float $value
 	 */
 	public function __construct($value)
 	{
-		$this->setValue($value);
+		$this->setValue((float) $value);
 	}
 
 	/**

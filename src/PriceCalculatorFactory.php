@@ -4,10 +4,7 @@ namespace Sunfox\PriceCalculator;
 
 final class PriceCalculatorFactory
 {
-	/**
-	 * @var string
-	 */
-	private $class;
+	private string $class;
 
 	/**
 	 * Accepts class name with full namespace.

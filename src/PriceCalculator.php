@@ -16,40 +16,19 @@ final class PriceCalculator implements IPriceCalculator
 {
 	use SmartObject;
 
-	/**
-	 * @var float
-	 */
-	protected $basePrice = 0.0;
+	protected float $basePrice = 0.0;
 
-	/**
-	 * @var IDiscount|NULL
-	 */
-	protected $discount;
+	protected ?IDiscount $discount = null;
 
-	/**
-	 * @var float
-	 */
-	protected $price = 0.0;
+	protected float $price = 0.0;
 
-	/**
-	 * @var float
-	 */
-	protected $vatRate = 0.0;
+	protected float $vatRate = 0.0;
 
-	/**
-	 * @var float
-	 */
-	protected $priceVat = 0.0;
+	protected float $priceVat = 0.0;
 
-	/**
-	 * @var int
-	 */
-	protected $decimalPoints = 2;
+	protected int $decimalPoints = 2;
 
-	/**
-	 * @var string
-	 */
-	protected $calculateFrom = self::FROM_BASEPRICE;
+	protected string $calculateFrom = self::FROM_BASEPRICE;
 
 	public function __construct(float $vatRate = 0.0, float $basePrice = 0.0, ?IDiscount $discount = NULL)
 	{

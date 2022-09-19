@@ -12,10 +12,7 @@ require __DIR__ . '/bootstrap.php';
 
 final class PriceCalculatorTest extends Tester\TestCase
 {
-	/**
-	 * @var PriceCalculatorFactory
-	 */
-	private $factory;
+	private PriceCalculatorFactory $factory;
 
 	public function setup(): void
 	{

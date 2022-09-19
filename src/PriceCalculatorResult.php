@@ -17,40 +17,19 @@ final class PriceCalculatorResult
 {
 	use SmartObject;
 
-	/**
-	 * @var IPriceCalculator
-	 */
-	protected $calculator;
+	protected IPriceCalculator $calculator;
 
-	/**
-	 * @var float
-	 */
-	protected $basePrice = 0.0;
+	protected float $basePrice = 0.0;
 
-	/**
-	 * @var IDiscount|NULL
-	 */
-	protected $discount;
+	protected ?IDiscount $discount = null;
 
-	/**
-	 * @var float
-	 */
-	protected $price = 0.0;
+	protected float $price = 0.0;
 
-	/**
-	 * @var float
-	 */
-	protected $vatRate = 0.0;
+	protected float $vatRate = 0.0;
 
-	/**
-	 * @var float
-	 */
-	protected $vat = 0.0;
+	protected float $vat = 0.0;
 
-	/**
-	 * @var float
-	 */
-	protected $priceVat = 0.0;
+	protected float $priceVat = 0.0;
 
 	public function __construct(
 		IPriceCalculator $calculator,
