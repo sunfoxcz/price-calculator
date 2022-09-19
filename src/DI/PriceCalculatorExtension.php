@@ -5,25 +5,26 @@ namespace Sunfox\PriceCalculator\DI;
 use Nette\Configurator;
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
 use Sunfox\PriceCalculator\PriceCalculator;
 use Sunfox\PriceCalculator\PriceCalculatorFactory;
 
 final class PriceCalculatorExtension extends CompilerExtension
 {
-	/**
-	 * @var string[]
-	 */
-	private $defaults = [
-		'calculatorClass' => PriceCalculator::class,
-	];
+	public function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'calculatorClass' => Expect::string(PriceCalculator::class),
+		]);
+	}
 
 	public function loadConfiguration(): void
 	{
-		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('factory'))
-			->setFactory(PriceCalculatorFactory::class, [$config['calculatorClass']]);
+			->setFactory(PriceCalculatorFactory::class, [$this->config->calculatorClass]);
 	}
 
 	public static function register(Configurator $config): void
