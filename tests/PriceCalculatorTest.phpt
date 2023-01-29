@@ -19,7 +19,23 @@ final class PriceCalculatorTest extends Tester\TestCase
 		$this->factory = new PriceCalculatorFactory();
 	}
 
-	public function testToArray(): void
+	public function testResultGetters(): void
+	{
+		$result = $this->factory->create()
+			->setBasePrice(1983.48)
+			->setPercentDiscount(10)
+			->setVatRate(21)
+			->calculate();
+
+		Assert::equal(1983.48, $result->basePrice);
+		Assert::type(PercentDiscount::class, $result->discount);
+		Assert::equal(1785.13, $result->price);
+		Assert::equal(21.0, $result->vatRate);
+		Assert::equal(374.88, $result->vat);
+		Assert::equal(2160.01, $result->priceVat);
+	}
+
+	public function testResultToArray(): void
 	{
 		$result = $this->factory->create()
 			->setBasePrice(1983.48)
