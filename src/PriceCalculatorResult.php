@@ -45,7 +45,7 @@ final class PriceCalculatorResult
 	}
 
 	/**
-	 * Get discount in percent without VAT.
+	 * Get discount object instance.
 	 */
 	public function getDiscount(): ?IDiscount
 	{
