@@ -13,14 +13,14 @@
 	],
 	"require": {
 		"php": ">=8.0 <8.3",
-		"nette/utils": "^3.2.8"
+		"nette/utils": "^3.2.8 || ^4.0"
 	},
 	"suggest": {
-		"nette/bootstrap": "^3.1.2"
+		"nette/bootstrap": "^3.2"
 	},
 	"require-dev": {
 		"nette/tester": "^2.4.3",
-		"nette/bootstrap": "^3.1.2"
+		"nette/bootstrap": "^3.2"
 	},
 	"autoload": {
 		"psr-4": {
@@ -32,7 +32,6 @@
 			"Sunfox\\PriceCalculatorTests\\": "tests/"
 		}
 	},
-	"minimum-stability": "dev",
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.0-dev"
