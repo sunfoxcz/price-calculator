@@ -2,7 +2,7 @@
 
 namespace Sunfox\PriceCalculator\DI;
 
-use Nette\Configurator;
+use Nette\Bootstrap\Configurator;
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
 use Nette\Schema\Expect;
