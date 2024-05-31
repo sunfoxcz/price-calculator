@@ -4,9 +4,9 @@ namespace Sunfox\PriceCalculator;
 
 interface IPriceCalculator
 {
-	public const FROM_BASEPRICE = 'basePrice';
-	public const FROM_PRICE = 'price';
-	public const FROM_PRICEVAT = 'priceVat';
+	public const FromBasePrice = 'basePrice';
+	public const FromPrice = 'price';
+	public const FromPriceVat = 'priceVat';
 
 	/**
 	 * Get price without VAT and discount.

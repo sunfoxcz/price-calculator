@@ -28,7 +28,7 @@ final class PriceCalculator implements IPriceCalculator
 
 	protected int $decimalPoints = 2;
 
-	protected string $calculateFrom = self::FROM_BASEPRICE;
+	protected string $calculateFrom = self::FromBasePrice;
 
 	public function __construct(float $vatRate = 0.0, float $basePrice = 0.0, ?IDiscount $discount = NULL)
 	{
@@ -51,7 +51,7 @@ final class PriceCalculator implements IPriceCalculator
 	public function setBasePrice(float $value): IPriceCalculator
 	{
 		$this->basePrice = $value;
-		$this->calculateFrom = self::FROM_BASEPRICE;
+		$this->calculateFrom = self::FromBasePrice;
 		return $this;
 	}
 
@@ -104,7 +104,7 @@ final class PriceCalculator implements IPriceCalculator
 	public function setPrice(float $value): IPriceCalculator
 	{
 		$this->price = $value;
-		$this->calculateFrom = self::FROM_PRICE;
+		$this->calculateFrom = self::FromPrice;
 		return $this;
 	}
 
@@ -139,7 +139,7 @@ final class PriceCalculator implements IPriceCalculator
 	public function setPriceVat(float $value): IPriceCalculator
 	{
 		$this->priceVat = $value;
-		$this->calculateFrom = self::FROM_PRICEVAT;
+		$this->calculateFrom = self::FromPriceVat;
 		return $this;
 	}
 
@@ -165,11 +165,11 @@ final class PriceCalculator implements IPriceCalculator
 	 */
 	public function calculate(): PriceCalculatorResult
 	{
-		if ($this->calculateFrom === self::FROM_BASEPRICE) {
+		if ($this->calculateFrom === self::FromBasePrice) {
 			[$basePrice, $price, $priceVat] = $this->calculateFromBasePrice();
-		} elseif ($this->calculateFrom === self::FROM_PRICE) {
+		} elseif ($this->calculateFrom === self::FromPrice) {
 			[$basePrice, $price, $priceVat] = $this->calculateFromPrice();
-		} elseif ($this->calculateFrom === self::FROM_PRICEVAT) {
+		} elseif ($this->calculateFrom === self::FromPriceVat) {
 			[$basePrice, $price, $priceVat] = $this->calculateFromPriceVat();
 		}
 
