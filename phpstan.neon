@@ -1,0 +1,11 @@
+parameters:
+	level: max
+	paths:
+		- src
+		- tests
+	ignoreErrors:
+		 - '#Variable \$basePrice might not be defined#'
+		 - '#Variable \$price might not be defined#'
+		 - '#Variable \$priceVat might not be defined#'
+		 - '#Cannot access property \$calculatorClass on array\|object#'
+		 - '#Method Sunfox\\PriceCalculator\\PriceCalculatorFactory::create\(\) should return Sunfox\\PriceCalculator\\IPriceCalculator but returns object#'
